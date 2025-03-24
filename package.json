@@ -1,0 +1,47 @@
+{
+  "name": "credible-ui",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3009",
+    "build": "next build",
+    "start": "next start -p 3009",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
+    "@solana/wallet-adapter-base": "^0.9.24",
+    "@solana/wallet-adapter-react": "^0.15.36",
+    "@solana/wallet-adapter-react-ui": "^0.9.36",
+    "@solana/wallet-adapter-wallets": "^0.19.33",
+    "@solana/web3.js": "^1.98.0",
+    "chart.js": "^4.4.8",
+    "encoding": "^0.1.13",
+    "framer-motion": "^10.16.4",
+    "next": "13.5.6",
+    "next-themes": "^0.4.6",
+    "node-fetch": "^2.6.9",
+    "pino-pretty": "^10.3.1",
+    "react": "18.2.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.11.0",
+    "recharts": "^2.15.1",
+    "rpc-websockets": "^7.5.1",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7",
+    "three": "^0.157.0",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.7",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18.2.14",
+    "@types/three": "^0.157.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.52.0",
+    "eslint-config-next": "13.5.6",
+    "postcss": "^8.4.31"
+  }
+}

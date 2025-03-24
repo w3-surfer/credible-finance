@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .animate-scroll {
+    animation: scroll 40s linear infinite;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+:root {
+  --primary: #B9E605;
+  --primary-dark: #9BCA04;
+  --background: #FFFFFF;
+  --foreground: #000000;
+  --card: #FFFFFF;
+  --card-foreground: #000000;
+  --popover: #FFFFFF;
+  --popover-foreground: #000000;
+  --secondary: #F3F4F6;
+  --secondary-foreground: #000000;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B7280;
+  --accent: #F3F4F6;
+  --accent-foreground: #000000;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #B9E605;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --primary: #B9E605;
+  --primary-dark: #9BCA04;
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --card: #000000;
+  --card-foreground: #FFFFFF;
+  --popover: #000000;
+  --popover-foreground: #FFFFFF;
+  --secondary: #1F2937;
+  --secondary-foreground: #FFFFFF;
+  --muted: #1F2937;
+  --muted-foreground: #9CA3AF;
+  --accent: #1F2937;
+  --accent-foreground: #FFFFFF;
+  --destructive: #7F1D1D;
+  --destructive-foreground: #FFFFFF;
+  --border: #1F2937;
+  --input: #1F2937;
+  --ring: #B9E605;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow;
+  }
+}
+
+/* Cyberpunk Effects */
+.cyber-glow {
+  text-shadow: 0 0 10px #B9E605,
+               0 0 20px #B9E605,
+               0 0 30px #B9E605;
+}
+
+.cyber-border {
+  position: relative;
+}
+
+.cyber-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #B9E605, #00F5FF);
+  z-index: -1;
+  border-radius: inherit;
+  animation: borderGlow 3s linear infinite;
+}
+
+@keyframes borderGlow {
+  0% {
+    filter: blur(5px);
+  }
+  50% {
+    filter: blur(10px);
+  }
+  100% {
+    filter: blur(5px);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#B9E605] dark:bg-[#B9E605];
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-[#8FB304] dark:bg-[#8FB304];
+}
+
+/* Selection Color */
+::selection {
+  @apply bg-[#B9E605] text-black;
+}
+
+/* Wallet Adapter Button Styles */
+.wallet-adapter-button {
+  @apply bg-[#B9E605] text-black font-bold rounded-lg px-4 py-2 hover:bg-[#B9E605]/90 transition-colors;
+}
+
+.wallet-adapter-button-wrapper {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.wallet-adapter-button-wrapper > div:not(:first-child),
+.wallet-adapter-button-wrapper > button:not(:first-child) {
+  display: none !important;
+}
+
+.wallet-adapter-modal-wrapper {
+  @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg;
+}
+
+.wallet-adapter-modal-title {
+  @apply text-gray-900 dark:text-white font-bold;
+}
+
+.wallet-adapter-modal-list {
+  @apply bg-gray-50 dark:bg-gray-800;
+}
+
+.wallet-adapter-modal-list-item {
+  @apply text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700;
+}
+
+@layer utilities {
+  .step {
+    counter-increment: step;
+  }
+
+  .step:before {
+    @apply absolute w-9 h-9 bg-muted rounded-full font-mono font-medium text-center text-base inline-flex items-center justify-center -indent-px border-4 border-background;
+    @apply ml-[-50px] mt-[-4px];
+    content: counter(step);
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    @apply px-4;
+  }
+} 
