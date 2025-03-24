@@ -1,20 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  env: {
-    PORT: '3009'
-  },
-  webpack: (config) => {
-    config.externals.push({
-      '@canvas/renderer': 'commonjs @canvas/renderer'
-    });
-    return config;
+  reactStrictMode: true,
+  images: {
+    domains: ['images.unsplash.com'],
   },
   experimental: {
-    appDir: true
-  },
-  async rewrites() {
-    return [];
+    serverActions: true,
   }
 }
 
-module.exports = nextConfig; 
+module.exports = nextConfig 
