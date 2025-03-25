@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiUser, FiShield, FiUsers, FiCopy, FiCheck, FiSettings, FiBell, FiCreditCard, FiLock, FiKey, FiActivity } from 'react-icons/fi';
+import { FiUser, FiShield, FiUsers, FiCopy, FiCheck, FiSettings, FiBell, FiCreditCard, FiLock, FiKey, FiActivity, FiGift, FiUserPlus } from 'react-icons/fi';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -33,34 +33,34 @@ const referrals: Referral[] = [
 
 const menuItems = [
   {
-    name: 'Overview',
+    name: 'Profile',
     href: '/account',
-    icon: FiActivity
+    icon: FiUser
   },
   {
-    name: 'Wallet',
-    href: '/account/wallet',
+    name: 'Wallets',
+    href: '/account/wallets',
     icon: FiCreditCard
   },
   {
-    name: 'Security',
-    href: '/account/security',
-    icon: FiLock
+    name: 'Cards',
+    href: '/account/cards',
+    icon: FiCreditCard
   },
   {
-    name: 'API Keys',
-    href: '/account/api-keys',
-    icon: FiKey
+    name: 'Beneficiaries',
+    href: '/account/beneficiaries',
+    icon: FiUserPlus
   },
   {
-    name: 'Notifications',
-    href: '/account/notifications',
-    icon: FiBell
+    name: 'Referral',
+    href: '/account/referral',
+    icon: FiUsers
   },
   {
-    name: 'Settings',
-    href: '/account/settings',
-    icon: FiSettings
+    name: 'Airdrop',
+    href: '/account/airdrop',
+    icon: FiGift
   }
 ];
 
