@@ -50,9 +50,8 @@ export function Staking() {
     <div className="flex-1 min-w-0">
       <Navigation />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Your Stakings */}
+        {/* Lista de Pools */}
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-white mb-4">Your Stakings</h2>
           <div className="space-y-4">
             {stakingPools.map((pool) => (
               <motion.div
@@ -88,9 +87,8 @@ export function Staking() {
           </div>
         </div>
 
-        {/* Supply and Withdraw */}
+        {/* Detalhes do Pool Selecionado */}
         <div className="space-y-4">
-          <h2 className="text-xl font-bold text-white mb-4">Supply and Withdraw</h2>
           {selectedPool ? (
             <div className="p-6 rounded-lg border border-gray-800">
               <div className="flex items-center space-x-3 mb-6">
@@ -101,36 +99,10 @@ export function Staking() {
                 </div>
               </div>
 
-              {/* Tab Buttons */}
-              <div className="flex gap-2 mb-6">
-                <button
-                  onClick={() => setSelectedTab('stake')}
-                  className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
-                    selectedTab === 'stake'
-                      ? 'bg-[#B9E605] text-black'
-                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-                  }`}
-                >
-                  <FiArrowDownCircle className="inline-block mr-2" />
-                  Stake
-                </button>
-                <button
-                  onClick={() => setSelectedTab('unstake')}
-                  className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
-                    selectedTab === 'unstake'
-                      ? 'bg-[#B9E605] text-black'
-                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-                  }`}
-                >
-                  <FiArrowUpCircle className="inline-block mr-2" />
-                  Unstake
-                </button>
-              </div>
-
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">
-                    Amount to {selectedTab === 'stake' ? 'Stake' : 'Unstake'}
+                    Amount to Stake
                   </label>
                   <div className="relative">
                     <input
@@ -157,19 +129,8 @@ export function Staking() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-lg bg-cyber-gray-100">
-                    <p className="text-sm text-gray-400">Staked Balance</p>
-                    <p className="text-lg font-semibold text-white">{selectedPool.staked}</p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-cyber-gray-100">
-                    <p className="text-sm text-gray-400">Rewards</p>
-                    <p className="text-lg font-semibold text-[#B9E605]">{selectedPool.rewards}</p>
-                  </div>
-                </div>
-
                 <button className="w-full py-3 bg-[#B9E605] text-black rounded-lg font-semibold hover:bg-[#a5cc05] transition-colors">
-                  {selectedTab === 'stake' ? 'Stake' : 'Unstake'} {selectedPool.token}
+                  Stake {selectedPool.token}
                 </button>
               </div>
             </div>
