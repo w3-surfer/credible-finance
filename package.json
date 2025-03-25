@@ -46,7 +46,8 @@
     "eslint-config-next": "14.1.0",
     "postcss": "^8.4.31",
     "rimraf": "^5.0.5",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7"
   },
   "resolutions": {
     "@types/react": "18.2.31",
