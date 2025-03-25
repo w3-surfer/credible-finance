@@ -5,7 +5,6 @@ import { FiDollarSign, FiLock, FiServer, FiUser, FiLayout, FiTrendingUp, FiChevr
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
 
 interface PageTitleProps {
   title: string;
