@@ -6,8 +6,16 @@ import PageTitle from '@/components/PageTitle';
 import { FiUsers, FiPlus, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import { useState } from 'react';
 
+interface Beneficiary {
+  id: number;
+  name: string;
+  wallet: string;
+  relationship: string;
+  percentage: number;
+}
+
 export default function Beneficiary() {
-  const [beneficiaries, setBeneficiaries] = useState([
+  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([
     {
       id: 1,
       name: 'John Doe',
@@ -23,6 +31,30 @@ export default function Beneficiary() {
       percentage: 50
     }
   ]);
+
+  // Função para adicionar um novo beneficiário
+  const addBeneficiary = () => {
+    const newBeneficiary: Beneficiary = {
+      id: beneficiaries.length + 1,
+      name: '',
+      wallet: '',
+      relationship: '',
+      percentage: 0
+    };
+    setBeneficiaries([...beneficiaries, newBeneficiary]);
+  };
+
+  // Função para remover um beneficiário
+  const removeBeneficiary = (id: number) => {
+    setBeneficiaries(beneficiaries.filter(b => b.id !== id));
+  };
+
+  // Função para editar um beneficiário
+  const editBeneficiary = (id: number, updatedData: Partial<Beneficiary>) => {
+    setBeneficiaries(beneficiaries.map(b => 
+      b.id === id ? { ...b, ...updatedData } : b
+    ));
+  };
 
   return (
     <>
@@ -51,7 +83,10 @@ export default function Beneficiary() {
                       <p className="text-gray-400">Manage your account beneficiaries</p>
                     </div>
                   </div>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors">
+                  <button 
+                    onClick={addBeneficiary}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors"
+                  >
                     <FiPlus className="w-5 h-5" />
                     Add Beneficiary
                   </button>
@@ -69,10 +104,16 @@ export default function Beneficiary() {
                           <p className="text-sm text-gray-400">Wallet: {beneficiary.wallet}</p>
                         </div>
                         <div className="flex items-center gap-2">
-                          <button className="p-2 text-gray-400 hover:text-white transition-colors">
+                          <button 
+                            onClick={() => editBeneficiary(beneficiary.id, { name: 'Updated Name' })}
+                            className="p-2 text-gray-400 hover:text-white transition-colors"
+                          >
                             <FiEdit2 className="w-5 h-5" />
                           </button>
-                          <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                          <button 
+                            onClick={() => removeBeneficiary(beneficiary.id)}
+                            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                          >
                             <FiTrash2 className="w-5 h-5" />
                           </button>
                         </div>
