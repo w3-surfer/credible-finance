@@ -8,7 +8,6 @@ import { Staking } from '@/components/dashboard/Staking';
 import { Transactions } from '@/components/dashboard/Transactions';
 import { Charts } from '@/components/dashboard/Charts';
 import { FiTrendingUp, FiDollarSign } from 'react-icons/fi';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Dashboard() {
   return (
