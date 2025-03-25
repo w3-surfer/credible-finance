@@ -132,11 +132,6 @@ export function Lending() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Your Lending Box */}
         <div className="bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300">
-          <div className="flex items-center justify-center mb-6">
-            <h3 className="text-xl font-bold text-[#B9E605]">Your Lending</h3>
-            <FiTrendingUp className="w-6 h-6 text-gray-900 dark:text-white ml-2" />
-          </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div className="bg-cyber-gray-100 rounded-lg p-4">
               <div className="text-sm text-gray-400 mb-2">Total Supplied</div>
