@@ -1,8 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FiLock, FiArrowDownCircle, FiArrowUpCircle, FiTrendingUp, FiGift } from 'react-icons/fi';
-
 interface StakingPool {
   token: string;
   staked: string;
