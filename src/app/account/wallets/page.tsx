@@ -6,8 +6,16 @@ import PageTitle from '@/components/PageTitle';
 import { FiPlusCircle, FiTrash2, FiCheck, FiCopy } from 'react-icons/fi';
 import { useState } from 'react';
 
+interface Wallet {
+  id: number;
+  name: string;
+  address: string;
+  type: string;
+  isPrimary: boolean;
+}
+
 export default function Wallets() {
-  const [connectedWallets, setConnectedWallets] = useState([
+  const [connectedWallets, setConnectedWallets] = useState<Wallet[]>([
     {
       id: 1,
       name: 'Phantom Wallet',
@@ -39,6 +47,31 @@ export default function Wallets() {
     setTimeout(() => setCopiedAddress(null), 2000);
   };
 
+  // Função para adicionar uma nova carteira
+  const addWallet = () => {
+    const newWallet: Wallet = {
+      id: connectedWallets.length + 1,
+      name: 'New Wallet',
+      address: '0x0000...0000',
+      type: 'Solana',
+      isPrimary: false
+    };
+    setConnectedWallets([...connectedWallets, newWallet]);
+  };
+
+  // Função para remover uma carteira
+  const removeWallet = (id: number) => {
+    setConnectedWallets(connectedWallets.filter(wallet => wallet.id !== id));
+  };
+
+  // Função para definir uma carteira como primária
+  const setPrimaryWallet = (id: number) => {
+    setConnectedWallets(connectedWallets.map(wallet => ({
+      ...wallet,
+      isPrimary: wallet.id === id
+    })));
+  };
+
   return (
     <>
       <PageTitle
@@ -58,7 +91,10 @@ export default function Wallets() {
               <div className="bg-black/50 border border-gray-800 rounded-lg p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold">Connected Wallets</h2>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors">
+                  <button 
+                    onClick={addWallet}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors"
+                  >
                     <FiPlusCircle className="w-5 h-5" />
                     Connect Wallet
                   </button>
@@ -84,7 +120,10 @@ export default function Wallets() {
                               Primary
                             </span>
                           ) : (
-                            <button className="text-sm text-gray-400 hover:text-white">
+                            <button 
+                              onClick={() => setPrimaryWallet(wallet.id)}
+                              className="text-sm text-gray-400 hover:text-white"
+                            >
                               Set as Primary
                             </button>
                           )}
@@ -98,7 +137,10 @@ export default function Wallets() {
                               <FiCopy className="w-5 h-5" />
                             )}
                           </button>
-                          <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                          <button 
+                            onClick={() => removeWallet(wallet.id)}
+                            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                          >
                             <FiTrash2 className="w-5 h-5" />
                           </button>
                         </div>
