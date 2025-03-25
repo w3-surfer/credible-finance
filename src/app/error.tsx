@@ -5,16 +5,13 @@ import { motion } from 'framer-motion';
 import { FiRefreshCw, FiHome } from 'react-icons/fi';
 
 export default function Error({
-  error,
   reset,
 }: {
-  error: Error & { digest?: string };
   reset: () => void;
 }) {
   return (
     <Layout
       title="500 - Server Error"
-      description="Something went wrong on our end"
     >
       <div className="max-w-md mx-auto text-center">
         <motion.div
