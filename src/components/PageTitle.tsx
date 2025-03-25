@@ -45,24 +45,6 @@ const titles = {
   }
 };
 
-const earnMenuItems = [
-  {
-    path: '/earn/lending',
-    name: 'Lending',
-    icon: FiDollarSign
-  },
-  {
-    path: '/earn/staking',
-    name: 'Staking',
-    icon: FiLock
-  },
-  {
-    path: '/earn/nodes',
-    name: 'Nodes',
-    icon: FiServer
-  }
-];
-
 export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProps) {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
