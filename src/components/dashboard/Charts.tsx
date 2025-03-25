@@ -18,22 +18,6 @@ const creditDistribution = [
   { name: 'Others', value: 10, color: '#5F9205' },
 ];
 
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-cyber-gray-200 p-4 rounded-lg border border-cyber-green/20 shadow-lg">
-        <p className="text-cyber-green font-bold">{label}</p>
-        {payload.map((entry: any, index: number) => (
-          <p key={index} className="text-white">
-            {entry.name}: {entry.value}
-          </p>
-        ))}
-      </div>
-    );
-  }
-  return null;
-};
-
 const COLORS = ['#B9E605', '#9BCA05', '#7DAE05', '#5F9205'];
 
 export const Charts = () => {
