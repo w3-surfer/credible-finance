@@ -3,7 +3,6 @@
 import { Layout } from '@/components/Layout';
 import { AccountMenu } from '@/components/AccountMenu';
 import PageTitle from '@/components/PageTitle';
-import { motion } from 'framer-motion';
 import { FiPlusCircle, FiCreditCard, FiLock, FiUnlock } from 'react-icons/fi';
 import { useState } from 'react';
 
