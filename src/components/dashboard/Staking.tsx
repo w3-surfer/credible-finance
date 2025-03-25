@@ -101,6 +101,32 @@ export function Staking() {
                 </div>
               </div>
 
+              {/* Tab Buttons */}
+              <div className="flex gap-2 mb-6">
+                <button
+                  onClick={() => setSelectedTab('stake')}
+                  className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
+                    selectedTab === 'stake'
+                      ? 'bg-[#B9E605] text-black'
+                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  }`}
+                >
+                  <FiArrowDownCircle className="inline-block mr-2" />
+                  Stake
+                </button>
+                <button
+                  onClick={() => setSelectedTab('unstake')}
+                  className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
+                    selectedTab === 'unstake'
+                      ? 'bg-[#B9E605] text-black'
+                      : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                  }`}
+                >
+                  <FiArrowUpCircle className="inline-block mr-2" />
+                  Unstake
+                </button>
+              </div>
+
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">
@@ -128,6 +154,17 @@ export function Staking() {
                   <div className="p-4 rounded-lg bg-cyber-gray-100">
                     <p className="text-sm text-gray-400">APY</p>
                     <p className="text-lg font-semibold text-[#B9E605]">{selectedPool.apy}</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-lg bg-cyber-gray-100">
+                    <p className="text-sm text-gray-400">Staked Balance</p>
+                    <p className="text-lg font-semibold text-white">{selectedPool.staked}</p>
+                  </div>
+                  <div className="p-4 rounded-lg bg-cyber-gray-100">
+                    <p className="text-sm text-gray-400">Rewards</p>
+                    <p className="text-lg font-semibold text-[#B9E605]">{selectedPool.rewards}</p>
                   </div>
                 </div>
 
