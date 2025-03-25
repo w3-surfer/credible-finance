@@ -5,7 +5,6 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { FooterMobile } from '@/components/FooterMobile'
-import PageTitle from '@/components/PageTitle'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +26,6 @@ export default function RootLayout({
             <Header />
             <main className="flex-grow">
               <div className="max-w-7xl mx-auto px-4">
-                <PageTitle title="" subtitle="" />
                 <div className="pb-4">
                   {children}
                 </div>
