@@ -6,7 +6,9 @@
     "dev": "next dev -p 3009",
     "build": "next build",
     "start": "next start -p 3009",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rimraf .next out",
+    "prebuild": "npm run clean"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
@@ -21,7 +23,7 @@
     "framer-motion": "^10.16.4",
     "next": "14.1.0",
     "next-themes": "^0.4.6",
-    "node-fetch": "^2.6.9",
+    "node-fetch": "^3.3.2",
     "pino-pretty": "^10.3.1",
     "qrcode.react": "^3.1.0",
     "react": "18.2.0",
@@ -29,30 +31,36 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
     "recharts": "^2.15.1",
-    "rpc-websockets": "^7.5.1",
-    "tailwindcss": "^3.3.3",
-    "tailwindcss-animate": "^1.0.7",
     "three": "^0.157.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.8.7",
     "@types/react": "18.2.31",
     "@types/react-dom": "18.2.14",
     "@types/three": "^0.157.0",
+    "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.52.0",
     "eslint-config-next": "14.1.0",
-    "postcss": "^8.4.31"
+    "postcss": "^8.4.31",
+    "rimraf": "^5.0.5",
+    "tailwindcss": "^3.3.3"
   },
   "resolutions": {
     "@types/react": "18.2.31",
-    "@types/react-dom": "18.2.14"
+    "@types/react-dom": "18.2.14",
+    "glob": "^10.3.10"
   },
   "overrides": {
     "@types/react": "18.2.31",
     "@types/react-dom": "18.2.14",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "glob": "^10.3.10"
+  },
+  "engines": {
+    "node": ">=18.17.0"
   }
 }
