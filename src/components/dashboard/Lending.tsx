@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiDollarSign } from 'react-icons/fi';
 
 const privateCreditCompanies = [
   {
