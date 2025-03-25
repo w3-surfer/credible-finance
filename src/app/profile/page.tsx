@@ -2,7 +2,7 @@
 
 import { Layout } from '@/components/Layout';
 import { motion } from 'framer-motion';
-import { FiUser, FiMail, FiLock, FiCreditCard, FiBell } from 'react-icons/fi';
+import { FiUser, FiLock, FiCreditCard, FiBell } from 'react-icons/fi';
 
 interface Field {
   label: string;
