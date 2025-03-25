@@ -36,7 +36,7 @@ const earnMenuItems = [
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { setTheme, resolvedTheme } = useTheme();
   const isHomePage = pathname === '/';
   const [isEarnMenuOpen, setIsEarnMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
