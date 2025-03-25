@@ -7,7 +7,7 @@ import { CreditLimit } from '@/components/dashboard/CreditLimit';
 import { Staking } from '@/components/dashboard/Staking';
 import { Transactions } from '@/components/dashboard/Transactions';
 import { Charts } from '@/components/dashboard/Charts';
-import { FiTrendingUp, FiDollarSign, FiActivity } from 'react-icons/fi';
+import { FiTrendingUp, FiDollarSign } from 'react-icons/fi';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function Dashboard() {
