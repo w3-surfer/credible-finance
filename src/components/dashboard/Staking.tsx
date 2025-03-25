@@ -50,8 +50,9 @@ export function Staking() {
     <div className="flex-1 min-w-0">
       <Navigation />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Lista de Pools */}
+        {/* Your Stakings */}
         <div className="space-y-4">
+          <h2 className="text-xl font-bold text-white mb-4">Your Stakings</h2>
           <div className="space-y-4">
             {stakingPools.map((pool) => (
               <motion.div
@@ -87,8 +88,9 @@ export function Staking() {
           </div>
         </div>
 
-        {/* Detalhes do Pool Selecionado */}
+        {/* Supply and Withdraw */}
         <div className="space-y-4">
+          <h2 className="text-xl font-bold text-white mb-4">Supply and Withdraw</h2>
           {selectedPool ? (
             <div className="p-6 rounded-lg border border-gray-800">
               <div className="flex items-center space-x-3 mb-6">
@@ -102,7 +104,7 @@ export function Staking() {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">
-                    Amount to Stake
+                    Amount to {selectedTab === 'stake' ? 'Stake' : 'Unstake'}
                   </label>
                   <div className="relative">
                     <input
@@ -130,7 +132,7 @@ export function Staking() {
                 </div>
 
                 <button className="w-full py-3 bg-[#B9E605] text-black rounded-lg font-semibold hover:bg-[#a5cc05] transition-colors">
-                  Stake {selectedPool.token}
+                  {selectedTab === 'stake' ? 'Stake' : 'Unstake'} {selectedPool.token}
                 </button>
               </div>
             </div>
