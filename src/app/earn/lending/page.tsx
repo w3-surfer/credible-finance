@@ -1,11 +1,11 @@
 'use client';
 
 import { Layout } from '@/components/Layout';
-import { Lending } from '@/components/dashboard';
+import { Lending } from '@/components/dashboard/Lending';
 
 export default function LendingPage() {
   return (
-    <Layout>
+    <Layout title="Lending" subtitle="Lend your assets and earn competitive interest">
       <Lending />
     </Layout>
   );

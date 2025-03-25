@@ -2,23 +2,20 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FiDollarSign, FiLock, FiServer } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
 const navigationItems = [
   {
     name: 'Lending',
-    href: '/earn/lending',
-    icon: FiDollarSign
+    href: '/earn/lending'
   },
   {
     name: 'Staking',
-    href: '/earn/staking',
-    icon: FiLock
+    href: '/earn/staking'
   },
   {
     name: 'Nodes',
-    href: '/earn/nodes',
-    icon: FiServer
+    href: '/earn/nodes'
   }
 ];
 
@@ -26,24 +23,30 @@ export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <div className="flex space-x-4 mb-8">
-      {navigationItems.map((item) => {
-        const isActive = pathname === item.href;
-        return (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
-              isActive
-                ? 'bg-[#B9E605] text-black'
-                : 'text-gray-400 hover:text-white hover:bg-cyber-gray-100'
-            }`}
-          >
-            <item.icon className="w-5 h-5 mr-2" />
-            {item.name}
-          </Link>
-        );
-      })}
+    <div className="flex justify-center mb-8">
+      <div className="flex space-x-4">
+        {navigationItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="relative px-4 py-2 text-sm font-medium transition-colors"
+            >
+              <span className={`relative z-10 ${isActive ? 'text-white' : 'text-gray-400 hover:text-white'}`}>
+                {item.name}
+              </span>
+              {isActive && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-[#B9E605] rounded-lg"
+                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                />
+              )}
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 } 

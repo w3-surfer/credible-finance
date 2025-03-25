@@ -2,230 +2,144 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiTrendingUp, FiArrowUpCircle, FiArrowDownCircle, FiGift } from 'react-icons/fi';
+import { FiArrowDownCircle, FiArrowUpCircle, FiTrendingUp, FiGift } from 'react-icons/fi';
 import { Navigation } from './Navigation';
 
-const privateCreditCompanies = [
-  {
-    name: 'Growth Catalyst',
-    type: 'Private Credit',
-    tvl: '4,534,914 USD',
-    apy: '16%',
-    rating: 'BB',
-    verifier: 'Credora',
-    tenor: 'Flexible',
-    logo: '/Growth Catalyst.png'
-  },
-  {
-    name: 'Damia Capital',
-    type: 'Private Credit',
-    tvl: '3,864,927 USD',
-    apy: '16%',
-    rating: 'BB',
-    verifier: 'Credora',
-    tenor: 'Flexible',
-    logo: '/Damia capital.png'
-  },
-  {
-    name: 'Impact Fund',
-    type: 'Private Credit',
-    tvl: '1,614,969 USD',
-    apy: '16%',
-    rating: 'BB',
-    verifier: 'Credora',
-    tenor: 'Flexible',
-    logo: '/ImpactFund.png'
-  },
-  {
-    name: 'DeCharge - Yolo Bikes',
-    type: 'Private Credit',
-    tvl: '638,688 USD',
-    apy: '20%',
-    rating: 'Unrated',
-    verifier: 'Unrated',
-    tenor: '1080 Days',
-    logo: '/dashboard-pool-img.png'
-  },
-  {
-    name: 'PayFi Vault',
-    type: 'Vault',
-    tvl: '178,577 USD',
-    apy: '20%',
-    rating: 'Unrated',
-    verifier: 'Unrated',
-    tenor: 'Flexible',
-    logo: '/usdc-logo.png'
-  },
-  {
-    name: 'GelCredit Healthcare',
-    type: 'Private Credit',
-    tvl: '57,935 USD',
-    apy: '20%',
-    rating: 'Unrated',
-    verifier: 'Unrated',
-    tenor: 'Flexible',
-    logo: '/gelcredit.png'
-  },
-  {
-    name: 'Etherfuse Cetes',
-    type: 'Partner Protocol',
-    tvl: '10,963 USD',
-    apy: '12%',
-    rating: 'BBB-',
-    verifier: 'Fitch',
-    tenor: '30 Days',
-    logo: '/etherfuse.png'
-  },
-  {
-    name: 'Plume Pool',
-    type: 'Private Credit',
-    tvl: '0 USD',
-    apy: '16%',
-    rating: 'Unrated',
-    verifier: 'Unrated',
-    tenor: 'Flexible',
-    logo: '/plume.png'
-  }
-];
+interface LendingPool {
+  token: string;
+  deposited: string;
+  earned: string;
+  apy: string;
+  totalLiquidity: string;
+  icon: string;
+}
 
-const pools = [
+const lendingPools: LendingPool[] = [
   {
-    token: 'USDC',
+    token: 'CRED',
+    deposited: '10,000 CRED',
+    earned: '500 CRED',
     apy: '12.5%',
-    tvl: '$5.2M',
-    available: '2,500 USDC',
-    icon: '/usdc-logo.png'
+    totalLiquidity: '1M CRED',
+    icon: '/cred logo.png'
   },
   {
     token: 'SOL',
+    deposited: '1,000 SOL',
+    earned: '50 SOL',
     apy: '8.2%',
-    tvl: '$3.1M',
-    available: '150 SOL',
+    totalLiquidity: '100K SOL',
     icon: '/sol-logo.png'
   },
   {
-    token: 'CRED',
-    apy: '15.8%',
-    tvl: '$2.8M',
-    available: '50,000 CRED',
-    icon: '/cred logo.png'
+    token: 'USDC',
+    deposited: '50,000 USDC',
+    earned: '2,500 USDC',
+    apy: '10.5%',
+    totalLiquidity: '5M USDC',
+    icon: '/usdc-logo.png'
   }
 ];
 
 export function Lending() {
-  const [selectedTab, setSelectedTab] = useState('supply');
-  const [amount, setAmount] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
-  const categories = [
-    { id: 'all', name: 'All' },
-    { id: 'Private Credit', name: 'Private Credit' },
-    { id: 'Partner Protocol', name: 'Partner Protocol' },
-    { id: 'Vault', name: 'Vault' }
-  ];
-
-  const filteredCompanies = selectedCategory === 'all' 
-    ? privateCreditCompanies 
-    : privateCreditCompanies.filter(company => company.type === selectedCategory);
+  const [selectedPool, setSelectedPool] = useState<LendingPool | null>(null);
+  const [amount, setAmount] = useState<string>('');
+  const [selectedTab, setSelectedTab] = useState('deposit');
 
   return (
     <div className="flex-1 min-w-0">
       <Navigation />
-      {/* Private Credit Box */}
-      <div className="bg-black/50 border border-gray-800 rounded-lg p-6 mb-8">
-        <h2 className="text-2xl font-bold mb-2 text-center text-[#B9E605]">Private Credit</h2>
-        <p className="text-gray-400 text-center mb-6">NBFIs, Bonds and T-Bills</p>
-        
-        {/* Category Menu */}
-        <div className="mb-6">
-          <div className="flex gap-2 overflow-x-auto pb-2 justify-center">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
-                  selectedCategory === category.id
-                    ? 'bg-[#B9E605] text-black'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                }`}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Lista de Pools */}
+        <div className="space-y-4">
+          <div className="space-y-4">
+            {lendingPools.map((pool) => (
+              <motion.div
+                key={pool.token}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`p-4 rounded-lg border ${
+                  selectedPool?.token === pool.token
+                    ? 'border-[#B9E605] bg-[#B9E605]/10'
+                    : 'border-gray-800'
+                } cursor-pointer`}
+                onClick={() => setSelectedPool(pool)}
               >
-                {category.name}
-              </button>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <img src={pool.icon} alt={pool.token} className="w-8 h-8 rounded-full" />
+                    <div>
+                      <h3 className="font-semibold text-white">{pool.token}</h3>
+                      <p className="text-sm text-gray-400">Deposited: {pool.deposited}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-medium text-[#B9E605]">
+                      APY: {pool.apy}
+                    </p>
+                    <p className="text-sm text-gray-400">
+                      Liquidity: {pool.totalLiquidity}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Private Credit Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="text-center text-gray-400 border-b border-gray-800">
-                <th className="pb-4 w-[20%]">Company</th>
-                <th className="pb-4 w-[12%]">Type</th>
-                <th className="pb-4 w-[15%]">TVL</th>
-                <th className="pb-4 w-[10%]">APY</th>
-                <th className="pb-4 w-[10%]">Rating</th>
-                <th className="pb-4 w-[15%]">Verifier</th>
-                <th className="pb-4 w-[18%]">Tenor</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredCompanies.map((company) => (
-                <tr key={company.name} className="border-b border-gray-800">
-                  <td className="py-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center">
-                        <img
-                          src={company.logo}
-                          alt={company.name}
-                          className="w-6 h-6 rounded-full"
-                        />
-                      </div>
-                      <span className="font-medium text-sm">{company.name}</span>
-                    </div>
-                  </td>
-                  <td className="py-4 text-center text-sm">{company.type}</td>
-                  <td className="py-4 text-center text-sm">{company.tvl}</td>
-                  <td className="py-4 text-center text-sm">{company.apy}</td>
-                  <td className="py-4 text-center text-sm">{company.rating}</td>
-                  <td className="py-4 text-center text-sm">{company.verifier}</td>
-                  <td className="py-4 text-center text-sm">{company.tenor}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Lending Pools */}
-      <div className="bg-black/50 border border-gray-800 rounded-lg p-6">
-        <h2 className="text-2xl font-bold mb-6 text-center text-[#B9E605]">Lending Pools</h2>
-        <div className="grid gap-4">
-          {pools.map((pool) => (
-            <motion.div
-              key={pool.token}
-              whileHover={{ scale: 1.01 }}
-              className="bg-black/30 border border-gray-800 rounded-lg p-4"
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={pool.icon}
-                    alt={pool.token}
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <div>
-                    <h3 className="font-bold">{pool.token}</h3>
-                    <p className="text-sm text-gray-400">Available: {pool.available}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-[#B9E605] font-bold">{pool.apy} APY</p>
-                  <p className="text-sm text-gray-400">TVL: {pool.tvl}</p>
+        {/* Detalhes do Pool Selecionado */}
+        <div className="space-y-4">
+          {selectedPool ? (
+            <div className="p-6 rounded-lg border border-gray-800">
+              <div className="flex items-center space-x-3 mb-6">
+                <img src={selectedPool.icon} alt={selectedPool.token} className="w-12 h-12 rounded-full" />
+                <div>
+                  <h3 className="text-xl font-bold text-white">{selectedPool.token}</h3>
+                  <p className="text-sm text-gray-400">Current APY: {selectedPool.apy}</p>
                 </div>
               </div>
-            </motion.div>
-          ))}
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Amount to {selectedTab === 'deposit' ? 'Deposit' : 'Withdraw'}
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      className="w-full px-4 py-2 bg-cyber-gray-100 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-[#B9E605] focus:border-transparent"
+                      placeholder="Enter amount"
+                    />
+                    <div className="absolute right-3 top-2 text-gray-400">
+                      {selectedPool.token}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 rounded-lg bg-cyber-gray-100">
+                    <p className="text-sm text-gray-400">Total Deposited</p>
+                    <p className="text-lg font-semibold text-white">{selectedPool.deposited}</p>
+                  </div>
+                  <div className="p-4 rounded-lg bg-cyber-gray-100">
+                    <p className="text-sm text-gray-400">Earned</p>
+                    <p className="text-lg font-semibold text-[#B9E605]">{selectedPool.earned}</p>
+                  </div>
+                </div>
+
+                <button className="w-full py-3 bg-[#B9E605] text-black rounded-lg font-semibold hover:bg-[#a5cc05] transition-colors">
+                  {selectedTab === 'deposit' ? 'Deposit' : 'Withdraw'} {selectedPool.token}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="p-6 rounded-lg border border-gray-800 text-center">
+              <FiTrendingUp className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+              <p className="text-gray-400">Select a lending pool to begin</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
