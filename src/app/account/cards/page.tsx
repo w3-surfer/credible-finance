@@ -3,11 +3,19 @@
 import { Layout } from '@/components/Layout';
 import { AccountMenu } from '@/components/AccountMenu';
 import PageTitle from '@/components/PageTitle';
-import { FiPlusCircle, FiCreditCard, FiLock, FiUnlock } from 'react-icons/fi';
+import { FiPlusCircle, FiCreditCard, FiLock, FiUnlock, FiTrash2 } from 'react-icons/fi';
 import { useState } from 'react';
 
+interface Card {
+  id: number;
+  last4: string;
+  expiry: string;
+  type: string;
+  isLocked: boolean;
+}
+
 export default function Cards() {
-  const [cards, setCards] = useState([
+  const [cards, setCards] = useState<Card[]>([
     {
       id: 1,
       last4: '4242',
@@ -23,6 +31,30 @@ export default function Cards() {
       isLocked: true
     }
   ]);
+
+  // Função para adicionar um novo cartão
+  const addCard = () => {
+    const newCard: Card = {
+      id: cards.length + 1,
+      last4: '0000',
+      expiry: 'MM/YY',
+      type: 'New Card',
+      isLocked: false
+    };
+    setCards([...cards, newCard]);
+  };
+
+  // Função para remover um cartão
+  const removeCard = (id: number) => {
+    setCards(cards.filter(card => card.id !== id));
+  };
+
+  // Função para alternar o estado de bloqueio do cartão
+  const toggleCardLock = (id: number) => {
+    setCards(cards.map(card => 
+      card.id === id ? { ...card, isLocked: !card.isLocked } : card
+    ));
+  };
 
   return (
     <>
@@ -43,7 +75,10 @@ export default function Cards() {
               <div className="bg-black/50 border border-gray-800 rounded-lg p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold">Your Cards</h2>
-                  <button className="flex items-center gap-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors">
+                  <button 
+                    onClick={addCard}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors"
+                  >
                     <FiPlusCircle className="w-5 h-5" />
                     Add New Card
                   </button>
@@ -57,13 +92,24 @@ export default function Cards() {
                     >
                       <div className="flex items-center justify-between mb-4">
                         <FiCreditCard className="w-8 h-8 text-[#B9E605]" />
-                        <button className="p-2 text-gray-400 hover:text-white transition-colors">
-                          {card.isLocked ? (
-                            <FiLock className="w-5 h-5" />
-                          ) : (
-                            <FiUnlock className="w-5 h-5" />
-                          )}
-                        </button>
+                        <div className="flex gap-2">
+                          <button 
+                            onClick={() => toggleCardLock(card.id)}
+                            className="p-2 text-gray-400 hover:text-white transition-colors"
+                          >
+                            {card.isLocked ? (
+                              <FiLock className="w-5 h-5" />
+                            ) : (
+                              <FiUnlock className="w-5 h-5" />
+                            )}
+                          </button>
+                          <button 
+                            onClick={() => removeCard(card.id)}
+                            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                          >
+                            <FiTrash2 className="w-5 h-5" />
+                          </button>
+                        </div>
                       </div>
                       <div className="space-y-2">
                         <div>
