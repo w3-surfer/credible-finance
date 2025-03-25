@@ -2,6 +2,7 @@
 
 import { Layout } from '@/components/Layout';
 import { AccountMenu } from '@/components/AccountMenu';
+import PageTitle from '@/components/PageTitle';
 import { motion } from 'framer-motion';
 import { FiCopy, FiTwitter, FiMessageSquare, FiCheckCircle, FiCreditCard, FiUsers, FiShield, FiDollarSign } from 'react-icons/fi';
 import { useState } from 'react';
@@ -101,91 +102,93 @@ export default function Airdrop() {
   ];
 
   return (
-    <Layout 
-      title="Airdrop" 
-      description="Collect Moons for $CRED airdrops"
-      subtitle="Complete tasks to qualify for $CRED airdrops!"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Menu Lateral */}
-          <div className="md:col-span-1">
-            <AccountMenu />
-          </div>
-
-          {/* Conteúdo Principal */}
-          <div className="md:col-span-3">
-            {/* Status Box */}
-            <div className="bg-black/50 border border-gray-800 rounded-lg p-6 mb-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  <Image src="/moon.png" alt="Moon" width={24} height={24} />
-                  <h2 className="text-2xl font-bold">Moons Earned</h2>
-                </div>
-                <h2 className="text-2xl font-bold">Tasks Completed</h2>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <p className="text-4xl font-bold text-[#B9E605]">1,234</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-4xl font-bold text-[#B9E605]">0/8</p>
-                </div>
-              </div>
+    <>
+      <PageTitle
+        title="Airdrop"
+        subtitle="Complete tasks to qualify for $CRED airdrops!"
+      />
+      <Layout>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Menu Lateral */}
+            <div className="md:col-span-1">
+              <AccountMenu />
             </div>
 
-            {/* Tasks Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {tasks.map((task) => (
-                <div
-                  key={task.id}
-                  className="bg-black/30 border border-gray-800 rounded-lg p-6"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <task.icon className="w-5 h-5 text-[#B9E605]" />
-                      <h3 className="text-lg font-bold">{task.title}</h3>
-                    </div>
-                    <span className="px-3 py-1 rounded-full border border-[#FF6B00] text-[#FF6B00] text-sm">
-                      {task.status}
-                    </span>
+            {/* Conteúdo Principal */}
+            <div className="md:col-span-3">
+              {/* Status Box */}
+              <div className="bg-black/50 border border-gray-800 rounded-lg p-6 mb-8">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-2">
+                    <Image src="/moon.png" alt="Moon" width={24} height={24} />
+                    <h2 className="text-2xl font-bold">Moons Earned</h2>
                   </div>
-                  <p className="text-gray-400 mb-4">{task.description}</p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm text-gray-400">Moons</p>
-                      <p className="text-xl font-bold text-[#B9E605]">+{task.moons}</p>
-                    </div>
-                    {task.id === 2 ? (
-                      <div className="flex items-center gap-2">
-                        <div className="bg-black/50 border border-gray-800 rounded-lg px-3 py-2 text-sm">
-                          {inviteLink}
-                        </div>
-                        <button
-                          onClick={copyToClipboard}
-                          className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-                        >
-                          <FiCopy className="w-5 h-5" />
-                        </button>
-                        {copied && (
-                          <span className="text-sm text-[#B9E605]">Copied!</span>
-                        )}
-                      </div>
-                    ) : (
-                      <button
-                        onClick={task.action}
-                        className="px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors"
-                      >
-                        {task.buttonText}
-                      </button>
-                    )}
+                  <div className="text-right">
+                    <h2 className="text-2xl font-bold mb-2">Tasks Completed</h2>
+                    <p className="text-4xl font-bold text-[#B9E605]">0/8</p>
                   </div>
                 </div>
-              ))}
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <p className="text-4xl font-bold text-[#B9E605]">1,234</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tasks Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {tasks.map((task) => (
+                  <div
+                    key={task.id}
+                    className="bg-black/30 border border-gray-800 rounded-lg p-6"
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <task.icon className="w-5 h-5 text-[#B9E605]" />
+                        <h3 className="text-lg font-bold">{task.title}</h3>
+                      </div>
+                      <span className="px-3 py-1 rounded-full border border-[#FF6B00] text-[#FF6B00] text-sm">
+                        {task.status}
+                      </span>
+                    </div>
+                    <p className="text-gray-400 mb-4">{task.description}</p>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-400">Moons</p>
+                        <p className="text-xl font-bold text-[#B9E605]">+{task.moons}</p>
+                      </div>
+                      {task.id === 2 ? (
+                        <div className="flex items-center gap-2">
+                          <div className="bg-black/50 border border-gray-800 rounded-lg px-3 py-2 text-sm">
+                            {inviteLink}
+                          </div>
+                          <button
+                            onClick={copyToClipboard}
+                            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+                          >
+                            <FiCopy className="w-5 h-5" />
+                          </button>
+                          {copied && (
+                            <span className="text-sm text-[#B9E605]">Copied!</span>
+                          )}
+                        </div>
+                      ) : (
+                        <button
+                          onClick={task.action}
+                          className="px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors"
+                        >
+                          {task.buttonText}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 } 
