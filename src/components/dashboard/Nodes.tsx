@@ -82,8 +82,6 @@ const availableNodes: NodeStat[] = [
 ];
 
 export function Nodes() {
-  const [selectedNode, setSelectedNode] = useState<string | null>(null);
-
   return (
     <div className="grid md:grid-cols-2 gap-8">
       {/* Left Panel - Your Nodes */}
