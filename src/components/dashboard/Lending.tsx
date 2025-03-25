@@ -111,8 +111,6 @@ const pools = [
 ];
 
 export function Lending() {
-  const [selectedTab, setSelectedTab] = useState('supply');
-  const [amount, setAmount] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const categories = [
