@@ -130,7 +130,6 @@ export default function Settings() {
   return (
     <Layout
       title="Settings"
-      description="Customize your application preferences"
     >
       <div className="max-w-3xl mx-auto space-y-8">
         {settingsSections.map((section, sectionIndex) => (

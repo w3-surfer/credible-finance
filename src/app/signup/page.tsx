@@ -8,7 +8,6 @@ export default function SignUp() {
   return (
     <Layout
       title="Sign Up"
-      description="Create your account"
     >
       <div className="max-w-md mx-auto">
         <motion.div

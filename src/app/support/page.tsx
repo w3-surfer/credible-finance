@@ -35,7 +35,6 @@ export default function Support() {
   return (
     <Layout
       title="Support"
-      description="Get help and support for your development needs"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {supportOptions.map((option, index) => (

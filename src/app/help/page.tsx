@@ -126,7 +126,6 @@ export default function Help() {
   return (
     <Layout
       title="Ajuda"
-      description="Encontre respostas para suas perguntas e suporte"
     >
       <div className="max-w-4xl mx-auto space-y-8">
         <motion.div

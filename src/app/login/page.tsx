@@ -8,7 +8,6 @@ export default function Login() {
   return (
     <Layout
       title="Login"
-      description="Access your account"
     >
       <div className="max-w-md mx-auto">
         <motion.div

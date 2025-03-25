@@ -55,7 +55,6 @@ export default function Pricing() {
   return (
     <Layout
       title="Pricing"
-      description="Choose the perfect plan for your needs"
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {plans.map((plan, index) => (

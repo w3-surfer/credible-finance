@@ -34,7 +34,6 @@ export default function Privacy() {
   return (
     <Layout
       title="Privacy Policy"
-      description="Read our privacy policy"
     >
       <div className="max-w-3xl mx-auto">
         <motion.div

@@ -34,7 +34,6 @@ export default function Terms() {
   return (
     <Layout
       title="Terms of Service"
-      description="Read our terms of service"
     >
       <div className="max-w-3xl mx-auto">
         <motion.div

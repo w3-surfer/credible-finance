@@ -59,7 +59,6 @@ export default function Profile() {
   return (
     <Layout
       title="Profile"
-      description="Manage your account settings"
     >
       <div className="max-w-3xl mx-auto space-y-8">
         {profileSections.map((section, sectionIndex) => (

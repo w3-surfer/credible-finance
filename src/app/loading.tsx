@@ -7,7 +7,6 @@ export default function Loading() {
   return (
     <Layout
       title="Loading"
-      description="Please wait while we load your content"
     >
       <div className="max-w-md mx-auto text-center">
         <motion.div
