@@ -3,7 +3,6 @@
 import { Layout } from '@/components/Layout';
 import { AccountMenu } from '@/components/AccountMenu';
 import PageTitle from '@/components/PageTitle';
-import { motion } from 'framer-motion';
 import { FiCopy, FiTwitter, FiMessageSquare, FiCheckCircle, FiCreditCard, FiUsers, FiShield, FiDollarSign } from 'react-icons/fi';
 import { useState } from 'react';
 import Image from 'next/image';
