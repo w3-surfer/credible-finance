@@ -2,9 +2,8 @@
 
 import { Layout } from '@/components/Layout';
 import { motion } from 'framer-motion';
-import { FiDollarSign, FiLock, FiServer, FiTrendingUp, FiActivity } from 'react-icons/fi';
+import { FiDollarSign, FiLock, FiServer } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
-import { EarnSidebar } from '@/components/EarnSidebar';
 
 const earnOptions = [
   {
