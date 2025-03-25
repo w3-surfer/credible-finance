@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiUser, FiShield, FiUsers, FiCopy, FiCheck, FiSettings, FiBell, FiHelpCircle } from 'react-icons/fi';
+import { FiUser, FiShield, FiUsers, FiCopy, FiCheck, FiSettings, FiBell, FiCreditCard, FiLock, FiKey, FiActivity } from 'react-icons/fi';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -33,9 +33,24 @@ const referrals: Referral[] = [
 
 const menuItems = [
   {
-    name: 'Profile',
+    name: 'Overview',
     href: '/account',
-    icon: FiUser
+    icon: FiActivity
+  },
+  {
+    name: 'Wallet',
+    href: '/account/wallet',
+    icon: FiCreditCard
+  },
+  {
+    name: 'Security',
+    href: '/account/security',
+    icon: FiLock
+  },
+  {
+    name: 'API Keys',
+    href: '/account/api-keys',
+    icon: FiKey
   },
   {
     name: 'Notifications',
@@ -46,11 +61,6 @@ const menuItems = [
     name: 'Settings',
     href: '/account/settings',
     icon: FiSettings
-  },
-  {
-    name: 'Help & Support',
-    href: '/account/help',
-    icon: FiHelpCircle
   }
 ];
 
