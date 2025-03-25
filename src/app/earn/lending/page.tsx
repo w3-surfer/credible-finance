@@ -5,7 +5,7 @@ import { Lending } from '@/components/dashboard';
 
 export default function LendingPage() {
   return (
-    <Layout title="Lending" subtitle="Lend your assets and earn competitive interest">
+    <Layout>
       <Lending />
     </Layout>
   );
