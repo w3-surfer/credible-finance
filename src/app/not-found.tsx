@@ -8,7 +8,6 @@ export default function NotFound() {
   return (
     <Layout
       title="404 - Page Not Found"
-      description="The page you're looking for doesn't exist"
     >
       <div className="max-w-md mx-auto text-center">
         <motion.div
