@@ -11,7 +11,7 @@ export default function AccountLayout({
     <div className="min-h-screen bg-black">
       <div className="container mx-auto py-8">
         <div className="flex gap-4">
-          <div className="flex-shrink-0 mt-48">
+          <div className="flex-shrink-0 mt-64">
             <AccountMenu />
           </div>
           <div className="flex-grow">
