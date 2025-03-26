@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { AccountMenu } from '@/components/AccountMenu';
+import { AccountMenu } from '@/components/dashboard/AccountMenu';
 
 export default function SecurityPage() {
   return (

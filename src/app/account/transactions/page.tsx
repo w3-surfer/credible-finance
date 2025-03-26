@@ -1,7 +1,7 @@
 'use client';
 
 import { Transactions } from '@/components/dashboard/Transactions';
-import { AccountMenu } from '@/components/AccountMenu';
+import { AccountMenu } from '@/components/dashboard/AccountMenu';
 
 export default function TransactionsPage() {
   return (
