@@ -21,8 +21,8 @@ export function AccountMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-64 bg-[#1a1a1a] rounded-xl p-4 border border-[#2a2a2a]">
-      <h2 className="text-xl font-bold text-white mb-6">User Management</h2>
+    <div className="w-64 bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300">
+      <h2 className="text-xl font-bold text-[#B9E605] mb-6">User Management</h2>
       <nav className="space-y-2">
         {menuItems.map((item) => {
           const isActive = pathname === item.href;
@@ -32,12 +32,12 @@ export function AccountMenu() {
               href={item.href}
               className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                 isActive
-                  ? 'bg-[#2a2a2a] text-[#B9E605]'
-                  : 'text-gray-400 hover:text-white hover:bg-[#2a2a2a]'
+                  ? 'bg-[#B9E605] text-black'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-[#B9E605] dark:hover:text-white'
               }`}
             >
-              <item.icon className="w-5 h-5" />
-              <span>{item.label}</span>
+              <item.icon className={`w-5 h-5 ${isActive ? 'text-black' : 'text-gray-600 dark:text-gray-400'}`} />
+              <span className="font-medium">{item.label}</span>
             </Link>
           );
         })}
@@ -47,7 +47,7 @@ export function AccountMenu() {
         className="w-full mt-6 flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:bg-red-400/10 transition-colors"
       >
         <FaSignOutAlt className="w-5 h-5" />
-        <span>Sign Out</span>
+        <span className="font-medium">Sign Out</span>
       </button>
     </div>
   );
