@@ -8,6 +8,7 @@ import { FAQ } from '@/components/home/FAQ';
 import { CTA } from '@/components/home/CTA';
 import { Security } from '@/components/home/Security';
 import { InteractiveBackground } from '@/components/home/InteractiveBackground';
+import { Tasks } from '@/components/home/Tasks';
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
       <InteractiveBackground />
       <Hero />
       <Features />
+      <Tasks />
       <Security />
       <Ecosystem />
       <Roadmap />

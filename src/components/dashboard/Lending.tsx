@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiArrowDownCircle, FiArrowUpCircle, FiTrendingUp, FiGift } from 'react-icons/fi';
-import { Navigation } from './Navigation';
 
 const privateCreditCompanies = [
   {
@@ -130,7 +128,6 @@ export function Lending() {
 
   return (
     <div className="flex-1 min-w-0">
-      <Navigation />
       {/* Private Credit Box */}
       <div className="bg-black/50 border border-gray-800 rounded-lg p-6 mb-8">
         <h2 className="text-2xl font-bold mb-2 text-center text-[#B9E605]">Private Credit</h2>

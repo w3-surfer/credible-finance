@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FiLock, FiArrowDownCircle, FiArrowUpCircle, FiTrendingUp, FiGift } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi';
 
 interface StakingPool {
+  id: number;
+  name: string;
   token: string;
   staked: string;
   rewards: string;
@@ -13,37 +14,41 @@ interface StakingPool {
   icon: string;
 }
 
-const stakingPools: StakingPool[] = [
-  {
-    token: 'CRED',
-    staked: '10,000 CRED',
-    rewards: '500 CRED',
-    apy: '12.5%',
-    lockPeriod: '30 Days',
-    icon: '/cred logo.png'
-  },
-  {
-    token: 'SOL',
-    staked: '1,000 SOL',
-    rewards: '50 SOL',
-    apy: '8.2%',
-    lockPeriod: '90 Days',
-    icon: '/sol-logo.png'
-  },
-  {
-    token: 'USDC',
-    staked: '50,000 USDC',
-    rewards: '2,500 USDC',
-    apy: '10.5%',
-    lockPeriod: '180 Days',
-    icon: '/usdc-logo.png'
-  }
-];
-
 export function DashboardStaking() {
   const [selectedPool, setSelectedPool] = useState<StakingPool | null>(null);
-  const [amount, setAmount] = useState<string>('');
-  const [selectedTab, setSelectedTab] = useState('stake');
+
+  const stakingPools: StakingPool[] = [
+    {
+      id: 1,
+      name: 'CRED Staking',
+      token: 'CRED',
+      staked: '1,000',
+      rewards: '150',
+      apy: '15%',
+      lockPeriod: '30 days',
+      icon: '/icons/cred.svg'
+    },
+    {
+      id: 2,
+      name: 'SOL Staking',
+      token: 'SOL',
+      staked: '50',
+      rewards: '5',
+      apy: '10%',
+      lockPeriod: '60 days',
+      icon: '/icons/sol.svg'
+    },
+    {
+      id: 3,
+      name: 'USDC Staking',
+      token: 'USDC',
+      staked: '5,000',
+      rewards: '400',
+      apy: '8%',
+      lockPeriod: '90 days',
+      icon: '/icons/usdc.svg'
+    }
+  ];
 
   return (
     <div className="flex-1 min-w-0">
@@ -52,10 +57,8 @@ export function DashboardStaking() {
         <div className="space-y-4">
           <div className="space-y-4">
             {stakingPools.map((pool) => (
-              <motion.div
+              <div
                 key={pool.token}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 className={`p-4 rounded-lg border ${
                   selectedPool?.token === pool.token
                     ? 'border-[#B9E605] bg-[#B9E605]/10'
@@ -80,7 +83,7 @@ export function DashboardStaking() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -105,8 +108,6 @@ export function DashboardStaking() {
                   <div className="relative">
                     <input
                       type="number"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
                       className="w-full px-4 py-2 bg-cyber-gray-100 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-[#B9E605] focus:border-transparent"
                       placeholder="Enter amount"
                     />
@@ -134,7 +135,7 @@ export function DashboardStaking() {
             </div>
           ) : (
             <div className="p-6 rounded-lg border border-gray-800 text-center">
-              <FiLock className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+              <FiArrowRight className="w-12 h-12 mx-auto text-gray-400 mb-4" />
               <p className="text-gray-400">Select a staking pool to begin</p>
             </div>
           )}

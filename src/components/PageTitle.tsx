@@ -48,7 +48,6 @@ const titles = {
 export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProps) {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-  const isEarnPage = pathname.startsWith('/earn/');
   const pageTitle = titles[pathname as keyof typeof titles] || { title, subtitle };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -60,34 +59,26 @@ export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProp
   }, []);
 
   useEffect(() => {
-    function handleMouseLeave(event: MouseEvent) {
+    function handleClickOutside(event: MouseEvent) {
       if (menuRef.current && buttonRef.current) {
-        const menuRect = menuRef.current.getBoundingClientRect();
-        const buttonRect = buttonRef.current.getBoundingClientRect();
-        const mouseX = event.clientX;
-        const mouseY = event.clientY;
-
-        const isOutsideMenu = mouseX < menuRect.left || mouseX > menuRect.right || mouseY < buttonRect.top || mouseY > menuRect.bottom;
-        
-        if (isOutsideMenu && !buttonRef.current.contains(event.target as Node)) {
+        if (!menuRef.current.contains(event.target as Node) && !buttonRef.current.contains(event.target as Node)) {
           setIsMenuOpen(false);
         }
       }
     }
 
-    document.addEventListener('mousemove', handleMouseLeave);
-    return () => document.removeEventListener('mousemove', handleMouseLeave);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const PageIcon = pageTitle.icon || Icon;
 
-  // Se for a homepage, não renderiza nada
   if (!mounted) {
     return null;
   }
 
   return (
-    <div className={`relative ${isHomePage ? 'pb-16' : isEarnPage ? 'pb-8' : 'pb-16'}`}>
+    <div className={`relative ${isHomePage ? 'pb-16' : 'pb-16'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex flex-col items-center justify-center text-center pt-32">
           <div className="relative flex items-center gap-3">
@@ -96,44 +87,49 @@ export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProp
               {pageTitle.title}
             </h1>
             {!isHomePage && (
-              <>
+              <div className="relative">
                 <button
                   ref={buttonRef}
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="p-2 hover:bg-black/30 rounded-lg transition-colors"
+                  className="flex items-center gap-1 text-gray-900 dark:text-white hover:text-[#B9E605] transition-colors"
                 >
-                  <FiChevronDown className={`w-5 h-5 text-gray-900 dark:text-white transition-transform ${isMenuOpen ? 'rotate-180' : ''}`} />
+                  <FiChevronDown className={`w-5 h-5 transition-transform ${isMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
-
                 {isMenuOpen && (
-                  <div 
+                  <div
                     ref={menuRef}
-                    className="absolute right-0 mt-2 w-64 bg-black/90 border border-gray-800 rounded-lg shadow-lg overflow-hidden z-50"
+                    className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-800 py-2 z-50"
                   >
-                    <nav className="py-2">
-                      {Object.entries(titles).map(([path, item]) => {
-                        const ItemIcon = item.icon;
-                        return (
-                          <Link
-                            key={path}
-                            href={path}
-                            className="flex items-start gap-3 px-4 py-3 hover:bg-black/50 transition-colors group"
-                          >
-                            {ItemIcon && <ItemIcon className="w-5 h-5 mt-0.5 text-gray-400 group-hover:text-[#B9E605]" />}
-                            <div className="flex flex-col">
-                              <span className="font-medium text-white group-hover:text-[#B9E605]">{item.title}</span>
-                              <span className="text-sm text-gray-400">{item.subtitle}</span>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </nav>
+                    <Link
+                      href="/account"
+                      className="flex items-center gap-2 px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <FiUser className="w-5 h-5" />
+                      Account
+                    </Link>
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center gap-2 px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <FiLayout className="w-5 h-5" />
+                      Dashboard
+                    </Link>
+                    <Link
+                      href="/earn"
+                      className="flex items-center gap-2 px-4 py-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <FiTrendingUp className="w-5 h-5" />
+                      Earn
+                    </Link>
                   </div>
                 )}
-              </>
+              </div>
             )}
           </div>
-          <p className={`mt-4 text-lg text-gray-600 dark:text-gray-400 ${isHomePage ? 'max-w-2xl' : ''}`}>
+          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
             {pageTitle.subtitle}
           </p>
         </div>

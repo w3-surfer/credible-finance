@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiServer, FiCpu, FiHardDrive, FiWifi, FiDownload } from 'react-icons/fi';
+import { FiCpu, FiHardDrive, FiWifi, FiDownload } from 'react-icons/fi';
 import { Navigation } from './Navigation';
 
 interface Node {

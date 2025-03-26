@@ -1,8 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FiUser, FiShield, FiUsers, FiCopy, FiCheck, FiSettings, FiBell, FiCreditCard, FiLock, FiKey, FiActivity, FiGift, FiUserPlus } from 'react-icons/fi';
+import { FiUser, FiShield, FiUsers, FiCopy, FiCheck, FiCreditCard, FiUserPlus, FiGift } from 'react-icons/fi';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -88,10 +87,10 @@ export function Account() {
               className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                 isActive
                   ? 'bg-[#B9E605] text-black'
-                  : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-[#B9E605] dark:hover:text-white'
               }`}
             >
-              <item.icon className="w-5 h-5" />
+              <item.icon className={`w-5 h-5 ${isActive ? 'text-black' : 'text-gray-600 dark:text-gray-400'}`} />
               <span className="font-medium">{item.name}</span>
             </Link>
           );
@@ -99,100 +98,100 @@ export function Account() {
       </div>
 
       {/* Conteúdo Principal */}
-      <div className="flex-1 space-y-6">
-        {/* Profile Section */}
-        <div className="p-6 rounded-lg border border-gray-800">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 rounded-full bg-gray-800 flex items-center justify-center">
-              <FiUser className="w-8 h-8 text-gray-400" />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-white">John Doe</h2>
-              <p className="text-gray-400">john.doe@example.com</p>
-            </div>
-          </div>
-        </div>
-
-        {/* KYC Verification */}
-        <div className="p-6 rounded-lg border border-gray-800">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white">KYC Verification</h3>
-            <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-500 text-sm">
-              Verified
-            </span>
-          </div>
-          <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <FiShield className="w-5 h-5 text-green-500" />
-              <span className="text-gray-400">Identity verified</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <FiShield className="w-5 h-5 text-green-500" />
-              <span className="text-gray-400">Address verified</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Referral Program */}
-        <div className="p-6 rounded-lg border border-gray-800">
+      <div className="flex-1">
+        <div className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-white">Referral Program</h3>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-400">Your Code:</span>
-              <div className="flex items-center space-x-2 bg-gray-800 px-3 py-1 rounded-lg">
-                <span className="text-white">{referralCode}</span>
+            <h3 className="text-xl font-bold text-[#B9E605]">Profile Information</h3>
+            <FiUser className="w-6 h-6 text-gray-600 dark:text-white" />
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="text-gray-600 dark:text-gray-400">Full Name</div>
+              <div className="text-white font-medium">John Doe</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-gray-600 dark:text-gray-400">Email</div>
+              <div className="text-white font-medium">john.doe@example.com</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-gray-600 dark:text-gray-400">Phone</div>
+              <div className="text-white font-medium">+1 (555) 123-4567</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-gray-600 dark:text-gray-400">Country</div>
+              <div className="text-white font-medium">United States</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-bold text-[#B9E605]">KYC Verification</h3>
+            <FiShield className="w-6 h-6 text-gray-600 dark:text-white" />
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="text-gray-600 dark:text-gray-400">Status</div>
+              <div className="text-[#B9E605] font-medium">Verified</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-gray-600 dark:text-gray-400">Level</div>
+              <div className="text-white font-medium">Level 2</div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-gray-600 dark:text-gray-400">Last Updated</div>
+              <div className="text-white font-medium">2024-03-15</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-bold text-[#B9E605]">Referrals</h3>
+            <FiUsers className="w-6 h-6 text-gray-600 dark:text-white" />
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="text-gray-600 dark:text-gray-400">Your Referral Code</div>
+              <div className="flex items-center gap-2">
+                <div className="text-white font-medium">{referralCode}</div>
                 <button
                   onClick={copyToClipboard}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors"
                 >
-                  {copied ? <FiCheck className="w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
+                  {copied ? (
+                    <FiCheck className="w-5 h-5 text-[#B9E605]" />
+                  ) : (
+                    <FiCopy className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                  )}
                 </button>
               </div>
             </div>
-          </div>
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <FiUsers className="w-5 h-5 text-[#B9E605]" />
-                <div>
-                  <p className="text-sm text-gray-400">Total Referrals</p>
-                  <p className="text-lg font-semibold text-white">2</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-sm text-gray-400">Total Rewards</p>
-                <p className="text-lg font-semibold text-[#B9E605]">200 CRED</p>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium text-gray-400">Recent Referrals</h4>
-              <div className="space-y-2">
+            <div className="mt-4">
+              <h4 className="text-lg font-medium text-white mb-4">Recent Referrals</h4>
+              <div className="space-y-4">
                 {referrals.map((referral) => (
-                  <motion.div
+                  <div
                     key={referral.id}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center justify-between p-3 bg-gray-800 rounded-lg"
+                    className="flex items-center justify-between p-4 bg-cyber-gray-200 dark:bg-cyber-gray-300 rounded-lg"
                   >
                     <div>
-                      <p className="text-white">{referral.address}</p>
-                      <p className="text-sm text-gray-400">{referral.date}</p>
+                      <div className="text-white font-medium">{referral.address}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">{referral.date}</div>
                     </div>
                     <div className="text-right">
-                      <p className="text-[#B9E605]">{referral.reward}</p>
-                      <span
-                        className={`text-xs px-2 py-1 rounded-full ${
-                          referral.status === 'completed'
-                            ? 'bg-green-500/20 text-green-500'
-                            : 'bg-yellow-500/20 text-yellow-500'
-                        }`}
-                      >
+                      <div className="text-[#B9E605] font-medium">{referral.reward}</div>
+                      <div className={`text-sm ${
+                        referral.status === 'completed' ? 'text-[#B9E605]' : 'text-gray-600 dark:text-gray-400'
+                      }`}>
                         {referral.status}
-                      </span>
+                      </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
