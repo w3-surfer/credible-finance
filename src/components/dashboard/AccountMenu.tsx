@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { FaUser, FaWallet, FaHistory, FaGift, FaCog, FaSignOutAlt, FaUsers, FaShareAlt, FaCreditCard } from 'react-icons/fa';
 
 const menuItems = [
-  { href: '/profile', label: 'Profile', icon: FaUser },
+  { href: '/account/profile', label: 'Profile', icon: FaUser },
   { href: '/account/wallet', label: 'Wallet', icon: FaWallet },
   { href: '/account/cards', label: 'Cards', icon: FaCreditCard },
   { href: '/account/beneficiaries', label: 'Beneficiaries', icon: FaUsers },
