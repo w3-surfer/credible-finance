@@ -58,8 +58,12 @@ export default function Wallet() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Wallet</h1>
+      <div className="text-center">
+        <h1 className="text-2xl font-bold text-white mb-2">Wallet</h1>
+        <p className="text-gray-400">Manage your connected wallets</p>
+      </div>
+
+      <div className="flex justify-end">
         <button className="px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors flex items-center space-x-2">
           <FaPlus className="w-4 h-4" />
           <span>Add Wallet</span>
@@ -71,7 +75,7 @@ export default function Wallet() {
         animate={{ opacity: 1, y: 0 }}
         className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
       >
-        <div className="flex items-center space-x-3 mb-6">
+        <div className="flex items-center justify-center space-x-3 mb-6">
           <FaWallet className="w-6 h-6 text-[#B9E605]" />
           <h2 className="text-xl font-bold text-white">Connected Wallets</h2>
         </div>
