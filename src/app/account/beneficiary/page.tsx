@@ -1,20 +1,11 @@
 'use client';
 
-import { Layout } from '@/components/Layout';
-import { Beneficiaries } from '@/components/dashboard/Beneficiaries';
-import { AccountMenu } from '@/components/dashboard/AccountMenu';
+import { BeneficiaryDetails } from '@/components/dashboard/BeneficiaryDetails';
 
-export default function BeneficiariesPage() {
+export default function BeneficiaryPage() {
   return (
-    <Layout title="Beneficiaries" subtitle="Manage your beneficiaries">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div className="md:col-span-1">
-          <AccountMenu />
-        </div>
-        <div className="md:col-span-3">
-          <Beneficiaries />
-        </div>
-      </div>
-    </Layout>
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <BeneficiaryDetails />
+    </div>
   );
 } 
