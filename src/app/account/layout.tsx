@@ -9,8 +9,8 @@ export default function AccountLayout({
 }) {
   return (
     <div className="min-h-screen bg-black">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex gap-8">
+      <div className="container mx-auto py-8">
+        <div className="flex gap-4">
           <AccountMenu />
           <main className="flex-1">
             {children}

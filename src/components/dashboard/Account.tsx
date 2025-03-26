@@ -39,7 +39,7 @@ export function Account() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="space-y-6">
       <div className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-[#B9E605]">Profile Information</h3>
