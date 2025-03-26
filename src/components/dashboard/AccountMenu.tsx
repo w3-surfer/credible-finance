@@ -3,12 +3,15 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaUser, FaWallet, FaHistory, FaGift, FaCog, FaSignOutAlt } from 'react-icons/fa';
+import { FaUser, FaWallet, FaHistory, FaGift, FaCog, FaSignOutAlt, FaUsers, FaShareAlt, FaCreditCard } from 'react-icons/fa';
 
 const menuItems = [
   { href: '/profile', label: 'Profile', icon: FaUser },
   { href: '/account/wallet', label: 'Wallet', icon: FaWallet },
+  { href: '/account/cards', label: 'Cards', icon: FaCreditCard },
+  { href: '/account/beneficiaries', label: 'Beneficiaries', icon: FaUsers },
   { href: '/account/history', label: 'History', icon: FaHistory },
+  { href: '/account/referral', label: 'Referral', icon: FaShareAlt },
   { href: '/account/airdrop', label: 'Airdrop', icon: FaGift },
   { href: '/account/settings', label: 'Settings', icon: FaCog },
 ];
