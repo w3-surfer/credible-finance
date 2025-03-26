@@ -23,18 +23,12 @@ export function Hero() {
           <p className="text-xl sm:text-2xl text-gray-300 mb-8">
             Build your on-chain credit score and unlock the future of decentralized finance
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Link
               href="/dashboard"
               className="px-8 py-4 bg-[#B9E605] text-black font-bold rounded-lg hover:bg-[#B9E605]/90 transition-colors"
             >
               Try Beta
-            </Link>
-            <Link
-              href="#features"
-              className="px-8 py-4 bg-white/10 text-white font-bold rounded-lg hover:bg-white/20 transition-colors"
-            >
-              Learn More
             </Link>
           </div>
         </motion.div>
