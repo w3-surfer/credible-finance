@@ -2,71 +2,57 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaWallet, FaArrowUp, FaArrowDown, FaExchangeAlt, FaHistory } from 'react-icons/fa';
+import { FaWallet, FaPlus, FaTrash } from 'react-icons/fa';
 
-interface Transaction {
+interface Wallet {
   id: string;
-  type: 'deposit' | 'withdraw' | 'transfer';
-  amount: number;
-  date: string;
-  status: 'completed' | 'pending' | 'failed';
-  description: string;
+  name: string;
+  type: 'backpack' | 'phantom' | 'solana';
+  address: string;
+  balance: number;
+  isConnected: boolean;
 }
 
-const mockTransactions: Transaction[] = [
+const mockWallets: Wallet[] = [
   {
     id: '1',
-    type: 'deposit',
-    amount: 1000,
-    date: '2024-03-20',
-    status: 'completed',
-    description: 'Deposit from bank account',
+    name: 'Backpack Wallet',
+    type: 'backpack',
+    address: '0x1234...5678',
+    balance: 1000,
+    isConnected: true,
   },
   {
     id: '2',
-    type: 'withdraw',
-    amount: 500,
-    date: '2024-03-19',
-    status: 'completed',
-    description: 'Withdrawal to bank account',
+    name: 'Phantom Wallet',
+    type: 'phantom',
+    address: '0x8765...4321',
+    balance: 500,
+    isConnected: true,
   },
   {
     id: '3',
-    type: 'transfer',
-    amount: 200,
-    date: '2024-03-18',
-    status: 'pending',
-    description: 'Transfer to user@example.com',
+    name: 'Solana Wallet',
+    type: 'solana',
+    address: '0x9876...5432',
+    balance: 750,
+    isConnected: false,
   },
 ];
 
 export default function Wallet() {
-  const [balance] = useState(5000);
-  const [transactions] = useState<Transaction[]>(mockTransactions);
+  const [wallets] = useState<Wallet[]>(mockWallets);
 
-  const getStatusColor = (status: Transaction['status']) => {
-    switch (status) {
-      case 'completed':
-        return 'text-green-500';
-      case 'pending':
-        return 'text-yellow-500';
-      case 'failed':
-        return 'text-red-500';
-      default:
-        return 'text-gray-500';
-    }
-  };
-
-  const getTransactionIcon = (type: Transaction['type']) => {
+  const getWalletIcon = (type: Wallet['type']) => {
     switch (type) {
-      case 'deposit':
-        return <FaArrowDown className="w-5 h-5 text-green-500" />;
-      case 'withdraw':
-        return <FaArrowUp className="w-5 h-5 text-red-500" />;
-      case 'transfer':
-        return <FaExchangeAlt className="w-5 h-5 text-blue-500" />;
+      case 'backpack':
+        return '🎒';
+      case 'phantom':
+        return '👻';
+      case 'solana':
+        return '☀️';
       default:
-        return <FaHistory className="w-5 h-5 text-gray-500" />;
+        return '💳';
     }
   };
 
@@ -74,14 +60,10 @@ export default function Wallet() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Wallet</h1>
-        <div className="flex space-x-4">
-          <button className="px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors">
-            Deposit
-          </button>
-          <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
-            Withdraw
-          </button>
-        </div>
+        <button className="px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors flex items-center space-x-2">
+          <FaPlus className="w-4 h-4" />
+          <span>Add Wallet</span>
+        </button>
       </div>
 
       <motion.div
@@ -91,44 +73,34 @@ export default function Wallet() {
       >
         <div className="flex items-center space-x-3 mb-6">
           <FaWallet className="w-6 h-6 text-[#B9E605]" />
-          <h2 className="text-xl font-bold text-white">Balance</h2>
-        </div>
-
-        <div className="text-4xl font-bold text-white mb-2">${balance.toFixed(2)}</div>
-        <p className="text-gray-400">Available balance</p>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
-      >
-        <div className="flex items-center space-x-3 mb-6">
-          <FaHistory className="w-6 h-6 text-[#B9E605]" />
-          <h2 className="text-xl font-bold text-white">Recent Transactions</h2>
+          <h2 className="text-xl font-bold text-white">Connected Wallets</h2>
         </div>
 
         <div className="space-y-4">
-          {transactions.map((transaction) => (
+          {wallets.map((wallet) => (
             <div
-              key={transaction.id}
+              key={wallet.id}
               className="flex items-center justify-between p-4 bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg"
             >
               <div className="flex items-center space-x-4">
-                {getTransactionIcon(transaction.type)}
+                <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center text-2xl">
+                  {getWalletIcon(wallet.type)}
+                </div>
                 <div>
-                  <div className="text-white font-medium">{transaction.description}</div>
-                  <div className="text-sm text-gray-400">{transaction.date}</div>
+                  <div className="text-white font-medium">{wallet.name}</div>
+                  <div className="text-sm text-gray-400">{wallet.address}</div>
                 </div>
               </div>
-              <div className="text-right">
-                <div className={`font-medium ${transaction.type === 'deposit' ? 'text-green-500' : 'text-red-500'}`}>
-                  {transaction.type === 'deposit' ? '+' : '-'}${transaction.amount.toFixed(2)}
+              <div className="flex items-center space-x-4">
+                <div className="text-right">
+                  <div className="text-white font-medium">${wallet.balance.toFixed(2)}</div>
+                  <div className={`text-sm ${wallet.isConnected ? 'text-green-500' : 'text-red-500'}`}>
+                    {wallet.isConnected ? 'Connected' : 'Disconnected'}
+                  </div>
                 </div>
-                <div className={`text-sm ${getStatusColor(transaction.status)}`}>
-                  {transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}
-                </div>
+                <button className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors">
+                  <FaTrash className="w-4 h-4" />
+                </button>
               </div>
             </div>
           ))}
