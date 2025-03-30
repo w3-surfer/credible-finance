@@ -197,6 +197,31 @@ export function Lending() {
       {/* Lending Pools */}
       <div className="bg-black/50 border border-gray-800 rounded-lg p-6">
         <h2 className="text-2xl font-bold mb-6 text-center text-[#B9E605]">Lending Pools</h2>
+        
+        {/* Tabs */}
+        <div className="flex gap-2 mb-6 justify-center">
+          <button
+            onClick={() => setSelectedTab('supply')}
+            className={`px-4 py-2 rounded-lg transition-colors ${
+              selectedTab === 'supply'
+                ? 'bg-[#B9E605] text-black'
+                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+            }`}
+          >
+            Supply
+          </button>
+          <button
+            onClick={() => setSelectedTab('withdraw')}
+            className={`px-4 py-2 rounded-lg transition-colors ${
+              selectedTab === 'withdraw'
+                ? 'bg-[#B9E605] text-black'
+                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+            }`}
+          >
+            Withdraw
+          </button>
+        </div>
+
         <div className="grid gap-4">
           {pools.map((pool) => (
             <motion.div
@@ -220,6 +245,16 @@ export function Lending() {
                   <p className="text-[#B9E605] font-bold">{pool.apy} APY</p>
                   <p className="text-sm text-gray-400">TVL: {pool.tvl}</p>
                 </div>
+              </div>
+              {/* Input field based on selected tab */}
+              <div className="mt-4">
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder={`Enter amount to ${selectedTab}`}
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-[#B9E605]"
+                />
               </div>
             </motion.div>
           ))}
