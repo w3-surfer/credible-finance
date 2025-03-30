@@ -8,6 +8,7 @@ interface Beneficiary {
   name: string;
   relationship: string;
   percentage: number;
+  order: number;
 }
 
 interface BeneficiariesProps {
@@ -40,6 +41,9 @@ export function Beneficiaries({ beneficiaries, onPercentageChange, onAdd, onRemo
     onPercentageChange(id, newPercentage);
   };
 
+  // Ordena os beneficiários pela ordem
+  const sortedBeneficiaries = [...beneficiaries].sort((a, b) => a.order - b.order);
+
   return (
     <div className="bg-black/50 border border-gray-800 rounded-lg p-6">
       <div className="flex items-center justify-between mb-6">
@@ -54,9 +58,9 @@ export function Beneficiaries({ beneficiaries, onPercentageChange, onAdd, onRemo
       </div>
 
       <div className="space-y-4">
-        {beneficiaries.map((beneficiary) => (
+        {sortedBeneficiaries.map((beneficiary) => (
           <div
-            key={beneficiary.id}
+            key={`${beneficiary.id}-${beneficiary.order}`}
             className="bg-black/30 border border-gray-800 rounded-lg p-6"
           >
             <div className="flex items-center justify-between">

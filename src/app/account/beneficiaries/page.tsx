@@ -10,13 +10,14 @@ interface Beneficiary {
   name: string;
   relationship: string;
   percentage: number;
+  order: number;
 }
 
 export default function BeneficiariesPage() {
   const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([
-    { id: '1', name: 'John Doe', relationship: 'Spouse', percentage: 50 },
-    { id: '2', name: 'Jane Doe', relationship: 'Child', percentage: 30 },
-    { id: '3', name: 'Bob Doe', relationship: 'Parent', percentage: 20 }
+    { id: '1', name: 'John Doe', relationship: 'Spouse', percentage: 50, order: 1 },
+    { id: '2', name: 'Jane Doe', relationship: 'Child', percentage: 30, order: 2 },
+    { id: '3', name: 'Bob Doe', relationship: 'Parent', percentage: 20, order: 3 }
   ]);
 
   const handlePercentageChange = (id: string, newPercentage: number) => {
@@ -73,7 +74,8 @@ export default function BeneficiariesPage() {
       id: newId,
       name: 'New Beneficiary',
       relationship: 'Other',
-      percentage: 0
+      percentage: 0,
+      order: beneficiaries.length + 1
     };
     setBeneficiaries([...beneficiaries, newBeneficiary]);
   };
