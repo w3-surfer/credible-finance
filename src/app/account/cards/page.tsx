@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaCreditCard, FaPlus } from 'react-icons/fa';
 import { Layout } from '@/components/Layout';
+import { AccountMenu } from '@/components/dashboard';
 
 interface Card {
   id: string;
@@ -43,46 +44,56 @@ export default function Cards() {
       title="Cards"
       subtitle="Manage your payment cards and transactions"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex justify-end mb-6">
-          <button className="flex items-center space-x-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors">
-            <FaPlus className="w-4 h-4" />
-            <span>Add Card</span>
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cards.map((card) => (
-            <motion.div
-              key={card.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center">
-                    <FaCreditCard className="w-5 h-5 text-[#B9E605]" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white">{card.type}</h3>
-                    <p className="text-sm text-gray-400">{card.number}</p>
-                  </div>
-                </div>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  card.status === 'active' 
-                    ? 'bg-green-500/20 text-green-500' 
-                    : 'bg-red-500/20 text-red-500'
-                }`}>
-                  {card.status}
-                </span>
-              </div>
-              <div className="text-sm text-gray-400 mb-4">Expires: {card.expiry}</div>
-              <button className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg hover:bg-cyber-gray-200 dark:hover:bg-cyber-gray-300 transition-colors">
-                Manage
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Menu Lateral */}
+          <div className="md:col-span-1">
+            <AccountMenu />
+          </div>
+          {/* Conteúdo Principal */}
+          <div className="md:col-span-3">
+            <div className="flex justify-end mb-6">
+              <button className="flex items-center space-x-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors">
+                <FaPlus className="w-4 h-4" />
+                <span>Add Card</span>
               </button>
-            </motion.div>
-          ))}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {cards.map((card) => (
+                <motion.div
+                  key={card.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
+                >
+                  <div className="flex items-center space-x-3 mb-4">
+                    <FaCreditCard className="w-6 h-6 text-[#B9E605]" />
+                    <h3 className="text-lg font-bold text-white">{card.type}</h3>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Card Number</span>
+                      <span className="text-white">{card.number}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Expiry</span>
+                      <span className="text-white">{card.expiry}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Status</span>
+                      <span className={`${
+                        card.status === 'active' ? 'text-green-500' : 'text-red-500'
+                      }`}>
+                        {card.status}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </Layout>

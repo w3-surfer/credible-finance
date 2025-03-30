@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGift, FaCheck, FaTimes } from 'react-icons/fa';
 import { Layout } from '@/components/Layout';
+import { AccountMenu } from '@/components/dashboard';
 
 interface Airdrop {
   id: string;
@@ -59,60 +60,65 @@ export default function Airdrop() {
       title="Airdrop"
       subtitle="Participate in token airdrops and earn rewards"
     >
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {airdrops.map((airdrop) => (
-            <motion.div
-              key={airdrop.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center">
-                    <FaGift className="w-5 h-5 text-[#B9E605]" />
-                  </div>
-                  <div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Menu Lateral */}
+          <div className="md:col-span-1">
+            <AccountMenu />
+          </div>
+          {/* Conteúdo Principal */}
+          <div className="md:col-span-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {airdrops.map((airdrop) => (
+                <motion.div
+                  key={airdrop.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
+                >
+                  <div className="flex items-center space-x-3 mb-4">
+                    <FaGift className="w-6 h-6 text-[#B9E605]" />
                     <h3 className="text-lg font-bold text-white">{airdrop.name}</h3>
-                    <p className="text-sm text-gray-400">Ends: {airdrop.endDate}</p>
                   </div>
-                </div>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                  airdrop.status === 'available' ? 'bg-green-500/20 text-green-500' :
-                  airdrop.status === 'claimed' ? 'bg-blue-500/20 text-blue-500' :
-                  'bg-red-500/20 text-red-500'
-                }`}>
-                  {airdrop.status}
-                </span>
-              </div>
 
-              <div className="text-2xl font-bold text-[#B9E605] mb-4">{airdrop.reward}</div>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-sm text-gray-400 mb-1">Reward</div>
+                      <div className="text-xl font-bold text-[#B9E605]">{airdrop.reward}</div>
+                    </div>
 
-              <div className="space-y-2 mb-6">
-                {airdrop.requirements.map((requirement, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    {airdrop.status === 'available' ? (
-                      <FaCheck className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <FaTimes className="w-4 h-4 text-red-500" />
-                    )}
-                    <span className="text-sm text-gray-400">{requirement}</span>
+                    <div>
+                      <div className="text-sm text-gray-400 mb-2">Requirements</div>
+                      <ul className="space-y-2">
+                        {airdrop.requirements.map((req, index) => (
+                          <li key={index} className="flex items-center space-x-2 text-sm">
+                            <FaCheck className="w-4 h-4 text-green-500" />
+                            <span className="text-white">{req}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-sm text-gray-400">End Date</div>
+                        <div className="text-white">{airdrop.endDate}</div>
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-400">Status</div>
+                        <div className={`${
+                          airdrop.status === 'available' ? 'text-green-500' :
+                          airdrop.status === 'claimed' ? 'text-blue-500' : 'text-red-500'
+                        }`}>
+                          {airdrop.status}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                ))}
-              </div>
-
-              <button
-                className={`w-full px-4 py-2 rounded-lg transition-colors ${
-                  airdrop.status === 'available'
-                    ? 'bg-[#B9E605] text-black hover:bg-[#B9E605]/90'
-                    : 'bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 hover:bg-cyber-gray-200 dark:hover:bg-cyber-gray-300'
-                }`}
-              >
-                {airdrop.status === 'available' ? 'Claim Now' : 'View Details'}
-              </button>
-            </motion.div>
-          ))}
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </Layout>
