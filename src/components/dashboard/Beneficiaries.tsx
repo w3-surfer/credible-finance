@@ -26,6 +26,13 @@ export function Beneficiaries({ beneficiaries, onPercentageChange, onAdd, onRemo
     setTimeout(() => setCopiedAddress(null), 2000);
   };
 
+  const handleRangeChange = (id: string, value: string) => {
+    const newPercentage = parseInt(value);
+    if (!isNaN(newPercentage)) {
+      onPercentageChange(id, newPercentage);
+    }
+  };
+
   return (
     <div className="bg-black/50 border border-gray-800 rounded-lg p-6">
       <div className="flex items-center justify-between mb-6">
@@ -72,8 +79,8 @@ export function Beneficiaries({ beneficiaries, onPercentageChange, onAdd, onRemo
                 min="0"
                 max="100"
                 value={beneficiary.percentage}
-                onChange={(e) => onPercentageChange(beneficiary.id, parseInt(e.target.value))}
-                className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer"
+                onChange={(e) => handleRangeChange(beneficiary.id, e.target.value)}
+                className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B9E605] [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#B9E605] [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
               />
             </div>
           </div>
