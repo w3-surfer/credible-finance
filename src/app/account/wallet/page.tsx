@@ -2,114 +2,89 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaWallet, FaPlus, FaTrash } from 'react-icons/fa';
+import { FaWallet, FaPlus } from 'react-icons/fa';
+import { Layout } from '@/components/Layout';
 
 interface Wallet {
   id: string;
   name: string;
-  type: 'backpack' | 'phantom' | 'solana';
-  address: string;
-  balance: number;
-  isConnected: boolean;
+  type: string;
+  balance: string;
+  status: 'connected' | 'disconnected';
 }
 
-const mockWallets: Wallet[] = [
-  {
-    id: '1',
-    name: 'Backpack Wallet',
-    type: 'backpack',
-    address: '0x1234...5678',
-    balance: 1000,
-    isConnected: true,
-  },
-  {
-    id: '2',
-    name: 'Phantom Wallet',
-    type: 'phantom',
-    address: '0x8765...4321',
-    balance: 500,
-    isConnected: true,
-  },
-  {
-    id: '3',
-    name: 'Solana Wallet',
-    type: 'solana',
-    address: '0x9876...5432',
-    balance: 750,
-    isConnected: false,
-  },
-];
-
 export default function Wallet() {
-  const [wallets] = useState<Wallet[]>(mockWallets);
-
-  const getWalletIcon = (type: Wallet['type']) => {
-    switch (type) {
-      case 'backpack':
-        return '🎒';
-      case 'phantom':
-        return '👻';
-      case 'solana':
-        return '☀️';
-      default:
-        return '💳';
+  const [wallets] = useState<Wallet[]>([
+    {
+      id: '1',
+      name: 'Backpack',
+      type: 'Solana',
+      balance: '$12,500.00',
+      status: 'connected'
+    },
+    {
+      id: '2',
+      name: 'Phantom',
+      type: 'Solana',
+      balance: '$8,750.00',
+      status: 'connected'
+    },
+    {
+      id: '3',
+      name: 'Solana',
+      type: 'Native',
+      balance: '$5,250.00',
+      status: 'connected'
     }
-  };
+  ]);
 
   return (
-    <div className="space-y-6">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-white mb-2">Wallet</h1>
-        <p className="text-gray-400">Manage your connected wallets</p>
-      </div>
-
-      <div className="flex justify-end">
-        <button className="px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors flex items-center space-x-2">
-          <FaPlus className="w-4 h-4" />
-          <span>Add Wallet</span>
-        </button>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
-      >
-        <div className="flex items-center justify-center space-x-3 mb-6">
-          <FaWallet className="w-6 h-6 text-[#B9E605]" />
-          <h2 className="text-xl font-bold text-white">Connected Wallets</h2>
+    <Layout
+      title="Wallet"
+      subtitle="Connect and manage your cryptocurrency wallets"
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex justify-end mb-6">
+          <button className="flex items-center space-x-2 px-4 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors">
+            <FaPlus className="w-4 h-4" />
+            <span>Add Wallet</span>
+          </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {wallets.map((wallet) => (
-            <div
+            <motion.div
               key={wallet.id}
-              className="flex items-center justify-between p-4 bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
             >
-              <div className="flex items-center space-x-4">
-                <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center text-2xl">
-                  {getWalletIcon(wallet.type)}
-                </div>
-                <div>
-                  <div className="text-white font-medium">{wallet.name}</div>
-                  <div className="text-sm text-gray-400">{wallet.address}</div>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="text-right">
-                  <div className="text-white font-medium">${wallet.balance.toFixed(2)}</div>
-                  <div className={`text-sm ${wallet.isConnected ? 'text-green-500' : 'text-red-500'}`}>
-                    {wallet.isConnected ? 'Connected' : 'Disconnected'}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center">
+                    <FaWallet className="w-5 h-5 text-[#B9E605]" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-white">{wallet.name}</h3>
+                    <p className="text-sm text-gray-400">{wallet.type}</p>
                   </div>
                 </div>
-                <button className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors">
-                  <FaTrash className="w-4 h-4" />
-                </button>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  wallet.status === 'connected' 
+                    ? 'bg-green-500/20 text-green-500' 
+                    : 'bg-red-500/20 text-red-500'
+                }`}>
+                  {wallet.status}
+                </span>
               </div>
-            </div>
+              <div className="text-2xl font-bold text-white mb-4">{wallet.balance}</div>
+              <button className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg hover:bg-cyber-gray-200 dark:hover:bg-cyber-gray-300 transition-colors">
+                Manage
+              </button>
+            </motion.div>
           ))}
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </Layout>
   );
 } 

@@ -23,7 +23,7 @@ export default function Profile() {
   return (
     <Layout
       title="Profile"
-      subtitle="Manage your profile information"
+      subtitle="Manage your personal information and account details"
     >
       <div className="container mx-auto px-4">
         <motion.div
