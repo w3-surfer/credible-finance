@@ -20,6 +20,9 @@ export default function BeneficiariesPage() {
   ]);
 
   const handlePercentageChange = (id: string, newPercentage: number) => {
+    // Garante que a nova porcentagem seja um número inteiro
+    newPercentage = Math.round(newPercentage);
+
     const updatedBeneficiaries = beneficiaries.map((beneficiary: Beneficiary) => {
       if (beneficiary.id === id) {
         return { ...beneficiary, percentage: newPercentage };
@@ -41,7 +44,7 @@ export default function BeneficiariesPage() {
         const adjustment = difference * proportion;
         return {
           ...beneficiary,
-          percentage: Math.max(0, Math.min(100, beneficiary.percentage - adjustment))
+          percentage: Math.round(Math.max(0, Math.min(100, beneficiary.percentage - adjustment)))
         };
       });
 
