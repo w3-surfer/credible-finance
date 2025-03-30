@@ -12,9 +12,7 @@ const nextConfig = {
     ],
   },
   experimental: {
-    serverActions: {
-      bodySizeLimit: '2mb',
-    },
+    serverActions: true,
   },
   swcMinify: true,
   compiler: {
@@ -26,7 +24,18 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: false,
   },
-  poweredByHeader: false
+  poweredByHeader: false,
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:3009/api/:path*',
+      },
+    ];
+  },
+  server: {
+    port: 3009,
+  },
 }
 
 module.exports = nextConfig 
