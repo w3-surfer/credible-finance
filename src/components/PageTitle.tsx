@@ -5,6 +5,7 @@ import { FiDollarSign, FiLock, FiServer, FiUser, FiLayout, FiTrendingUp, FiChevr
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 
 interface PageTitleProps {
   title: string;
@@ -53,6 +54,7 @@ export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProp
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -82,7 +84,7 @@ export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProp
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex flex-col items-center justify-center text-center pt-32">
           <div className="relative flex items-center gap-3">
-            {PageIcon && <PageIcon className="w-8 h-8 text-gray-900 dark:text-white" />}
+            {PageIcon && <PageIcon className={`w-8 h-8 ${resolvedTheme === 'dark' ? 'text-white' : 'text-black'}`} />}
             <h1 className="text-4xl font-bold text-[#B9E605]">
               {pageTitle.title}
             </h1>
