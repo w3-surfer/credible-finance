@@ -35,6 +35,10 @@ const nextConfig = {
   },
   server: {
     port: 3009,
+    hostname: '0.0.0.0',
+  },
+  env: {
+    PORT: '3009',
   },
 }
 
