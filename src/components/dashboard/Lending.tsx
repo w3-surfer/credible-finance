@@ -1,9 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 
-const privateCreditCompanies = [
+interface Company {
+  name: string;
+  type: 'Private Credit' | 'Partner Protocol' | 'Vault';
+  tvl: string;
+  apy: string;
+  rating: string;
+  verifier: string;
+  tenor: string;
+  logo: string;
+}
+
+interface Pool {
+  token: string;
+  apy: string;
+  tvl: string;
+  available: string;
+  icon: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+}
+
+type TabType = 'supply' | 'withdraw';
+
+const privateCreditCompanies: Company[] = [
   {
     name: 'Growth Catalyst',
     type: 'Private Credit',
@@ -86,7 +112,7 @@ const privateCreditCompanies = [
   }
 ];
 
-const pools = [
+const pools: Pool[] = [
   {
     token: 'USDC',
     apy: '12.5%',
@@ -111,20 +137,31 @@ const pools = [
 ];
 
 export function Lending() {
-  const [selectedTab, setSelectedTab] = useState('supply');
-  const [amount, setAmount] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedTab, setSelectedTab] = useState<TabType>('supply');
+  const [amount, setAmount] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const categories = [
+  const categories: Category[] = [
     { id: 'all', name: 'All' },
     { id: 'Private Credit', name: 'Private Credit' },
     { id: 'Partner Protocol', name: 'Partner Protocol' },
     { id: 'Vault', name: 'Vault' }
   ];
 
-  const filteredCompanies = selectedCategory === 'all' 
-    ? privateCreditCompanies 
-    : privateCreditCompanies.filter(company => company.type === selectedCategory);
+  const filteredCompanies = useMemo(() => 
+    selectedCategory === 'all' 
+      ? privateCreditCompanies 
+      : privateCreditCompanies.filter(company => company.type === selectedCategory),
+    [selectedCategory]
+  );
+
+  const handleCategoryChange = useCallback((categoryId: string) => {
+    setSelectedCategory(categoryId);
+  }, []);
+
+  const handleAmountChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+  }, []);
 
   return (
     <div className="flex-1 min-w-0">
@@ -134,12 +171,15 @@ export function Lending() {
         <p className="text-gray-400 text-center mb-6">NBFIs, Bonds and T-Bills</p>
         
         {/* Category Menu */}
-        <div className="mb-6">
+        <div className="mb-6" role="tablist" aria-label="Category filters">
           <div className="flex gap-2 overflow-x-auto pb-2 justify-center">
             {categories.map((category) => (
               <button
                 key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
+                onClick={() => handleCategoryChange(category.id)}
+                role="tab"
+                aria-selected={selectedCategory === category.id}
+                aria-controls={`${category.id}-content`}
                 className={`px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
                   selectedCategory === category.id
                     ? 'bg-[#B9E605] text-black'
@@ -153,17 +193,17 @@ export function Lending() {
         </div>
 
         {/* Private Credit Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full">
+        <div className="overflow-x-auto" role="region" aria-label="Private Credit Companies">
+          <table className="w-full" role="grid">
             <thead>
               <tr className="text-center text-gray-400 border-b border-gray-800">
-                <th className="pb-4 w-[20%]">Company</th>
-                <th className="pb-4 w-[12%]">Type</th>
-                <th className="pb-4 w-[15%]">TVL</th>
-                <th className="pb-4 w-[10%]">APY</th>
-                <th className="pb-4 w-[10%]">Rating</th>
-                <th className="pb-4 w-[15%]">Verifier</th>
-                <th className="pb-4 w-[18%]">Tenor</th>
+                <th scope="col" className="pb-4 w-[20%]">Company</th>
+                <th scope="col" className="pb-4 w-[12%]">Type</th>
+                <th scope="col" className="pb-4 w-[15%]">TVL</th>
+                <th scope="col" className="pb-4 w-[10%]">APY</th>
+                <th scope="col" className="pb-4 w-[10%]">Rating</th>
+                <th scope="col" className="pb-4 w-[15%]">Verifier</th>
+                <th scope="col" className="pb-4 w-[18%]">Tenor</th>
               </tr>
             </thead>
             <tbody>
@@ -176,6 +216,7 @@ export function Lending() {
                           src={company.logo}
                           alt={company.name}
                           className="w-6 h-6 rounded-full"
+                          loading="lazy"
                         />
                       </div>
                       <span className="font-medium text-sm">{company.name}</span>
@@ -199,9 +240,11 @@ export function Lending() {
         <h2 className="text-2xl font-bold mb-6 text-center text-[#B9E605]">Lending Pools</h2>
         
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 justify-center">
+        <div className="flex gap-2 mb-6 justify-center" role="tablist" aria-label="Lending actions">
           <button
             onClick={() => setSelectedTab('supply')}
+            role="tab"
+            aria-selected={selectedTab === 'supply'}
             className={`px-4 py-2 rounded-lg transition-colors ${
               selectedTab === 'supply'
                 ? 'bg-[#B9E605] text-black'
@@ -212,6 +255,8 @@ export function Lending() {
           </button>
           <button
             onClick={() => setSelectedTab('withdraw')}
+            role="tab"
+            aria-selected={selectedTab === 'withdraw'}
             className={`px-4 py-2 rounded-lg transition-colors ${
               selectedTab === 'withdraw'
                 ? 'bg-[#B9E605] text-black'
@@ -235,6 +280,7 @@ export function Lending() {
                     src={pool.icon}
                     alt={pool.token}
                     className="w-8 h-8 rounded-full"
+                    loading="lazy"
                   />
                   <div>
                     <h3 className="font-bold">{pool.token}</h3>
@@ -251,9 +297,10 @@ export function Lending() {
                 <input
                   type="number"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={handleAmountChange}
                   placeholder={`Enter amount to ${selectedTab}`}
                   className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-[#B9E605]"
+                  aria-label={`Amount to ${selectedTab}`}
                 />
               </div>
             </motion.div>
