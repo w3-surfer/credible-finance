@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
+  "buildCommand": "npm install && next build",
   "devCommand": "npm run dev",
   "installCommand": "npm install --no-optional",
   "framework": "nextjs",
@@ -39,5 +39,11 @@
   },
   "env": {
     "NODE_VERSION": "20.18.0"
-  }
+  },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ]
 } 
