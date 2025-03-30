@@ -3,7 +3,7 @@
 import { Layout } from '@/components/Layout';
 import { AccountMenu } from '@/components/dashboard';
 import { Beneficiaries } from '@/components/dashboard/Beneficiaries';
-import { useState } from 'react';
+import { useState, useReducer, useCallback } from 'react';
 
 interface Beneficiary {
   id: string;
@@ -13,97 +13,119 @@ interface Beneficiary {
   order: number;
 }
 
+type BeneficiaryAction = 
+  | { type: 'UPDATE_PERCENTAGE'; id: string; percentage: number }
+  | { type: 'ADD_BENEFICIARY' }
+  | { type: 'REMOVE_BENEFICIARY'; id: string }
+  | { type: 'REORDER_BENEFICIARIES' };
+
+function beneficiaryReducer(state: Beneficiary[], action: BeneficiaryAction): Beneficiary[] {
+  switch (action.type) {
+    case 'UPDATE_PERCENTAGE': {
+      const { id, percentage } = action;
+      const beneficiary = state.find(b => b.id === id);
+      if (!beneficiary) return state;
+
+      const oldPercentage = beneficiary.percentage;
+      const difference = percentage - oldPercentage;
+      const otherBeneficiaries = state.filter(b => b.id !== id);
+      const totalOtherPercentage = otherBeneficiaries.reduce((sum, b) => sum + b.percentage, 0);
+
+      if (totalOtherPercentage > 0) {
+        const adjustedBeneficiaries = otherBeneficiaries.map(b => {
+          const proportion = b.percentage / totalOtherPercentage;
+          const adjustment = difference * proportion;
+          return {
+            ...b,
+            percentage: Math.max(0, Math.min(100, Math.round(b.percentage - adjustment)))
+          };
+        });
+
+        const total = percentage + adjustedBeneficiaries.reduce((sum, b) => sum + b.percentage, 0);
+        const roundingError = 100 - total;
+        
+        if (roundingError !== 0) {
+          adjustedBeneficiaries[adjustedBeneficiaries.length - 1].percentage += roundingError;
+        }
+
+        return [
+          { ...beneficiary, percentage },
+          ...adjustedBeneficiaries
+        ];
+      }
+
+      return state.map(b => 
+        b.id === id ? { ...b, percentage } : b
+      );
+    }
+
+    case 'ADD_BENEFICIARY': {
+      const newId = String(state.length + 1);
+      const newBeneficiary: Beneficiary = {
+        id: newId,
+        name: 'New Beneficiary',
+        relationship: 'Other',
+        percentage: 0,
+        order: state.length + 1
+      };
+      return [...state, newBeneficiary];
+    }
+
+    case 'REMOVE_BENEFICIARY': {
+      const beneficiaryToRemove = state.find(b => b.id === action.id);
+      if (!beneficiaryToRemove) return state;
+
+      const remainingBeneficiaries = state.filter(b => b.id !== action.id);
+      const percentageToDistribute = beneficiaryToRemove.percentage;
+
+      const adjustedBeneficiaries = remainingBeneficiaries.map(b => {
+        const proportion = b.percentage / (100 - percentageToDistribute);
+        return {
+          ...b,
+          percentage: Math.max(0, Math.min(100, Math.round(b.percentage + (percentageToDistribute * proportion))))
+        };
+      });
+
+      const total = adjustedBeneficiaries.reduce((sum, b) => sum + b.percentage, 0);
+      if (total !== 100) {
+        adjustedBeneficiaries[adjustedBeneficiaries.length - 1].percentage += (100 - total);
+      }
+
+      return adjustedBeneficiaries;
+    }
+
+    case 'REORDER_BENEFICIARIES': {
+      return state.map((beneficiary, index) => ({
+        ...beneficiary,
+        order: index + 1
+      }));
+    }
+
+    default:
+      return state;
+  }
+}
+
 export default function BeneficiariesPage() {
-  const [beneficiaries, setBeneficiaries] = useState<Beneficiary[]>([
+  const [beneficiaries, dispatch] = useReducer(beneficiaryReducer, [
     { id: '1', name: 'John Doe', relationship: 'Spouse', percentage: 50, order: 1 },
     { id: '2', name: 'Jane Doe', relationship: 'Child', percentage: 30, order: 2 },
     { id: '3', name: 'Bob Doe', relationship: 'Parent', percentage: 20, order: 3 }
   ]);
 
-  const handlePercentageChange = (id: string, newPercentage: number) => {
-    // Garante que a nova porcentagem seja um número inteiro
-    newPercentage = Math.round(newPercentage);
+  const handlePercentageChange = useCallback((id: string, newPercentage: number) => {
+    if (newPercentage < 0 || newPercentage > 100) return;
+    dispatch({ type: 'UPDATE_PERCENTAGE', id, percentage: Math.round(newPercentage) });
+  }, []);
 
-    const updatedBeneficiaries = beneficiaries.map((beneficiary: Beneficiary) => {
-      if (beneficiary.id === id) {
-        return { ...beneficiary, percentage: newPercentage };
-      }
-      return beneficiary;
-    });
+  const handleAddBeneficiary = useCallback(() => {
+    dispatch({ type: 'ADD_BENEFICIARY' });
+  }, []);
 
-    // Calcula a diferença entre a nova porcentagem e a antiga
-    const oldPercentage = beneficiaries.find((b: Beneficiary) => b.id === id)?.percentage || 0;
-    const difference = newPercentage - oldPercentage;
-
-    // Ajusta as outras porcentagens proporcionalmente
-    const otherBeneficiaries = updatedBeneficiaries.filter((b: Beneficiary) => b.id !== id);
-    const totalOtherPercentage = otherBeneficiaries.reduce((sum: number, b: Beneficiary) => sum + b.percentage, 0);
-
-    if (totalOtherPercentage > 0) {
-      const adjustedBeneficiaries = otherBeneficiaries.map((beneficiary: Beneficiary) => {
-        const proportion = beneficiary.percentage / totalOtherPercentage;
-        const adjustment = difference * proportion;
-        return {
-          ...beneficiary,
-          percentage: Math.round(Math.max(0, Math.min(100, beneficiary.percentage - adjustment)))
-        };
-      });
-
-      // Garante que a soma seja exatamente 100%
-      const total = newPercentage + adjustedBeneficiaries.reduce((sum: number, b: Beneficiary) => sum + b.percentage, 0);
-      const roundingError = 100 - total;
-      
-      if (roundingError !== 0) {
-        // Ajusta o último beneficiário para compensar erros de arredondamento
-        adjustedBeneficiaries[adjustedBeneficiaries.length - 1].percentage += roundingError;
-      }
-
-      setBeneficiaries([
-        ...updatedBeneficiaries.filter((b: Beneficiary) => b.id === id),
-        ...adjustedBeneficiaries
-      ]);
-    } else {
-      // Se não houver outros beneficiários, apenas atualiza o atual
-      setBeneficiaries(updatedBeneficiaries);
-    }
-  };
-
-  const handleAddBeneficiary = () => {
-    const newId = String(beneficiaries.length + 1);
-    const newBeneficiary: Beneficiary = {
-      id: newId,
-      name: 'New Beneficiary',
-      relationship: 'Other',
-      percentage: 0,
-      order: beneficiaries.length + 1
-    };
-    setBeneficiaries([...beneficiaries, newBeneficiary]);
-  };
-
-  const handleRemoveBeneficiary = (id: string) => {
-    const beneficiaryToRemove = beneficiaries.find(b => b.id === id);
-    if (!beneficiaryToRemove) return;
-
-    const remainingBeneficiaries = beneficiaries.filter(b => b.id !== id);
-    const percentageToDistribute = beneficiaryToRemove.percentage;
-
-    // Distribui a porcentagem do beneficiário removido entre os restantes
-    const adjustedBeneficiaries = remainingBeneficiaries.map(beneficiary => {
-      const proportion = beneficiary.percentage / (100 - percentageToDistribute);
-      return {
-        ...beneficiary,
-        percentage: Math.round(beneficiary.percentage + (percentageToDistribute * proportion))
-      };
-    });
-
-    // Ajusta o último beneficiário para garantir que a soma seja 100%
-    const total = adjustedBeneficiaries.reduce((sum, b) => sum + b.percentage, 0);
-    if (total !== 100) {
-      adjustedBeneficiaries[adjustedBeneficiaries.length - 1].percentage += (100 - total);
-    }
-
-    setBeneficiaries(adjustedBeneficiaries);
-  };
+  const handleRemoveBeneficiary = useCallback((id: string) => {
+    dispatch({ type: 'REMOVE_BENEFICIARY', id });
+    dispatch({ type: 'REORDER_BENEFICIARIES' });
+  }, []);
 
   return (
     <Layout
