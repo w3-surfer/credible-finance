@@ -2,6 +2,7 @@
 
 import { IconType } from 'react-icons';
 import { FiDollarSign, FiLock, FiServer, FiUser, FiLayout, FiTrendingUp, FiChevronDown } from 'react-icons/fi';
+import { FaWallet, FaCreditCard, FaUsers, FaHistory, FaUserPlus, FaGift, FaCog } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
@@ -18,6 +19,46 @@ const titles = {
     title: 'Account',
     subtitle: 'Manage your account settings and preferences',
     icon: FiUser
+  },
+  '/account/profile': {
+    title: 'Profile',
+    subtitle: 'Manage your personal information and account details',
+    icon: FiUser
+  },
+  '/account/wallet': {
+    title: 'Wallet',
+    subtitle: 'Manage your wallets and view balances',
+    icon: FaWallet
+  },
+  '/account/cards': {
+    title: 'Cards',
+    subtitle: 'Manage your payment cards and transactions',
+    icon: FaCreditCard
+  },
+  '/account/beneficiaries': {
+    title: 'Beneficiaries',
+    subtitle: 'Manage your beneficiaries and transfer settings',
+    icon: FaUsers
+  },
+  '/account/history': {
+    title: 'History',
+    subtitle: 'View your transaction history and activity',
+    icon: FaHistory
+  },
+  '/account/referral': {
+    title: 'Referral',
+    subtitle: 'Invite friends and earn rewards',
+    icon: FaUserPlus
+  },
+  '/account/airdrop': {
+    title: 'Airdrop',
+    subtitle: 'Participate in token airdrops and earn rewards',
+    icon: FaGift
+  },
+  '/account/settings': {
+    title: 'Settings',
+    subtitle: 'Customize your account preferences and security settings',
+    icon: FaCog
   },
   '/dashboard': {
     title: 'Dashboard',
