@@ -12,11 +12,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@solana/web3.js": "^1.87.6",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.34",
     "@solana/wallet-adapter-wallets": "^0.19.25",
+    "@solana/web3.js": "^1.87.6",
+    "@walletconnect/sign-client": "^2.18.0",
     "chart.js": "^4.4.1",
     "framer-motion": "^10.16.4",
     "next": "14.1.0",
@@ -26,9 +27,9 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
     "recharts": "^2.12.0",
+    "sharp": "0.33.2",
     "typescript": "^5.3.3",
-    "uuid": "^9.0.1",
-    "@walletconnect/sign-client": "^2.18.0"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.11.19",
