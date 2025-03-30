@@ -1,7 +1,5 @@
-'use client';
-
-import { Account } from '@/components/dashboard';
+import { redirect } from 'next/navigation';
 
 export default function AccountPage() {
-  return <Account />;
+  redirect('/account/profile');
 } 
