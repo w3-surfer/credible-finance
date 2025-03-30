@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { FiPlusCircle, FiTrash2, FiCopy, FiCheck } from 'react-icons/fi';
+import { useState, useEffect } from 'react';
 
 interface Beneficiary {
   id: string;
@@ -18,19 +18,26 @@ interface BeneficiariesProps {
 }
 
 export function Beneficiaries({ beneficiaries, onPercentageChange, onAdd, onRemove }: BeneficiariesProps) {
-  const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
+  const [localPercentages, setLocalPercentages] = useState<{ [key: string]: number }>({});
 
-  const handleCopyAddress = (address: string) => {
-    navigator.clipboard.writeText(address);
-    setCopiedAddress(address);
-    setTimeout(() => setCopiedAddress(null), 2000);
-  };
+  // Inicializa as porcentagens locais quando os beneficiários mudam
+  useEffect(() => {
+    const initialPercentages = beneficiaries.reduce((acc, beneficiary) => {
+      acc[beneficiary.id] = beneficiary.percentage;
+      return acc;
+    }, {} as { [key: string]: number });
+    setLocalPercentages(initialPercentages);
+  }, [beneficiaries]);
 
-  const handleRangeChange = (id: string, value: string) => {
-    const newPercentage = parseInt(value);
-    if (!isNaN(newPercentage)) {
-      onPercentageChange(id, newPercentage);
-    }
+  const handlePercentageChange = (id: string, newPercentage: number) => {
+    // Atualiza a porcentagem local imediatamente para feedback visual
+    setLocalPercentages(prev => ({
+      ...prev,
+      [id]: newPercentage
+    }));
+    
+    // Chama a função do pai para atualizar o estado global
+    onPercentageChange(id, newPercentage);
   };
 
   return (
@@ -78,9 +85,9 @@ export function Beneficiaries({ beneficiaries, onPercentageChange, onAdd, onRemo
                 type="range"
                 min="0"
                 max="100"
-                value={beneficiary.percentage}
-                onChange={(e) => handleRangeChange(beneficiary.id, e.target.value)}
-                className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#B9E605] [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#B9E605] [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer"
+                value={localPercentages[beneficiary.id] || beneficiary.percentage}
+                onChange={(e) => handlePercentageChange(beneficiary.id, parseInt(e.target.value))}
+                className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer"
               />
             </div>
           </div>
