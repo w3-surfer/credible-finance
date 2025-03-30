@@ -64,6 +64,42 @@ export default function BeneficiariesPage() {
     }
   };
 
+  const handleAddBeneficiary = () => {
+    const newId = String(beneficiaries.length + 1);
+    const newBeneficiary: Beneficiary = {
+      id: newId,
+      name: 'New Beneficiary',
+      relationship: 'Other',
+      percentage: 0
+    };
+    setBeneficiaries([...beneficiaries, newBeneficiary]);
+  };
+
+  const handleRemoveBeneficiary = (id: string) => {
+    const beneficiaryToRemove = beneficiaries.find(b => b.id === id);
+    if (!beneficiaryToRemove) return;
+
+    const remainingBeneficiaries = beneficiaries.filter(b => b.id !== id);
+    const percentageToDistribute = beneficiaryToRemove.percentage;
+
+    // Distribui a porcentagem do beneficiário removido entre os restantes
+    const adjustedBeneficiaries = remainingBeneficiaries.map(beneficiary => {
+      const proportion = beneficiary.percentage / (100 - percentageToDistribute);
+      return {
+        ...beneficiary,
+        percentage: Math.round(beneficiary.percentage + (percentageToDistribute * proportion))
+      };
+    });
+
+    // Ajusta o último beneficiário para garantir que a soma seja 100%
+    const total = adjustedBeneficiaries.reduce((sum, b) => sum + b.percentage, 0);
+    if (total !== 100) {
+      adjustedBeneficiaries[adjustedBeneficiaries.length - 1].percentage += (100 - total);
+    }
+
+    setBeneficiaries(adjustedBeneficiaries);
+  };
+
   return (
     <Layout
       title="Beneficiaries"
@@ -77,7 +113,12 @@ export default function BeneficiariesPage() {
           </div>
           {/* Conteúdo Principal */}
           <div className="md:col-span-3">
-            <Beneficiaries />
+            <Beneficiaries 
+              beneficiaries={beneficiaries}
+              onPercentageChange={handlePercentageChange}
+              onAdd={handleAddBeneficiary}
+              onRemove={handleRemoveBeneficiary}
+            />
           </div>
         </div>
       </div>
