@@ -23,7 +23,7 @@ export function Hero() {
           <p className="text-xl sm:text-2xl text-gray-300 mb-8">
             Build your on-chain credit score and unlock the future of decentralized finance
           </p>
-          <div className="flex justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/dashboard"
               className="px-8 py-4 bg-[#B9E605] text-black font-bold rounded-lg hover:bg-[#B9E605]/90 transition-colors"
@@ -35,14 +35,16 @@ export function Hero() {
       </div>
 
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 pointer-events-none w-full h-[800px] flex items-end justify-center">
-        <Image
-          src="/alien.png"
-          alt="Alien Background"
-          width={900}
-          height={900}
-          className="opacity-40 dark:opacity-30 object-contain"
-          priority
-        />
+        <div className="relative w-full h-[400px] md:h-[600px]">
+          <video
+            src="/alien.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-contain"
+          />
+        </div>
       </div>
     </section>
   );
