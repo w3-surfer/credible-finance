@@ -1,30 +1,21 @@
 'use client';
 
-import { Layout } from '@/components/Layout';
 import { motion } from 'framer-motion';
 
 export default function Loading() {
   return (
-    <Layout
-      title="Loading"
-    >
-      <div className="max-w-md mx-auto text-center">
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="bg-gray-900/50 backdrop-blur-lg rounded-lg p-8 border border-gray-800"
-        >
-          <div className="flex justify-center mb-4">
-            <div className="relative">
-              <div className="w-12 h-12 border-4 border-gray-700 rounded-full animate-spin border-t-[#B9E605]" />
-            </div>
-          </div>
-          <h2 className="text-2xl font-bold mb-4">Loading</h2>
-          <p className="text-gray-400">
-            Please wait while we load your content...
-          </p>
-        </motion.div>
-      </div>
-    </Layout>
+    <div className="min-h-screen flex items-center justify-center">
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="bg-gray-900/50 backdrop-blur-lg rounded-lg p-8 border border-gray-800"
+      >
+        <div className="flex flex-col items-center">
+          <div className="w-16 h-16 border-4 border-[#B9E605] border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p className="text-gray-400">Loading...</p>
+        </div>
+      </motion.div>
+    </div>
   );
 } 
