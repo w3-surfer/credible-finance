@@ -10,7 +10,7 @@ export default function BeneficiariesPage() {
       subtitle="Manage your beneficiaries and their details"
     >
       <div className="container mx-auto px-4">
-        <div className="mt-24">
+        <div className="mt-32">
           <Beneficiaries />
         </div>
       </div>
