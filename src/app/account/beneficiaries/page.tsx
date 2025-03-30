@@ -9,8 +9,8 @@ export default function BeneficiariesPage() {
       title="Beneficiaries"
       subtitle="Manage your beneficiaries and their details"
     >
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mt-16">
+      <div className="container mx-auto px-4">
+        <div className="mt-24">
           <Beneficiaries />
         </div>
       </div>
