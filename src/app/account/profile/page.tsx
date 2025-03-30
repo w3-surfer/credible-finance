@@ -149,9 +149,6 @@ export default function Profile() {
                       {profile.kycStatus === 'rejected' && (
                         <FaTimesCircle className="w-6 h-6 text-red-500" />
                       )}
-                      {profile.kycStatus === 'pending' && (
-                        <div className="w-6 h-6 border-2 border-[#B9E605] rounded-full animate-spin border-t-transparent" />
-                      )}
                     </div>
                   </div>
 
