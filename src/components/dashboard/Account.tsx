@@ -30,10 +30,17 @@ const referrals: Referral[] = [
   }
 ];
 
+interface Profile {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
 export default function Account() {
   const [copied, setCopied] = useState(false);
   const referralCode = 'CRED-123456';
-  const [profile, setProfile] = useState({
+  const [profile, setProfile] = useState<Profile>({
     name: 'John Doe',
     email: 'john@example.com',
     phone: '+1 234 567 890',

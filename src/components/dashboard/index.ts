@@ -1,4 +1,13 @@
 export { Lending } from './Lending';
 export { Staking } from './Staking';
 export { Nodes } from './Nodes';
-export { Account } from './Account'; 
+export { default as Account } from './Account';
+export { default as Dashboard } from './Dashboard';
+export { default as Wallet } from './Wallet';
+export { default as Cards } from './Cards';
+export { default as Beneficiaries } from './Beneficiaries';
+export { default as History } from './History';
+export { default as Referral } from './Referral';
+export { default as Airdrop } from './Airdrop';
+export { default as Settings } from './Settings';
+export { default as UserManagement } from './UserManagement'; 
