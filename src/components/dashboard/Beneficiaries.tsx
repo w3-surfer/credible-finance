@@ -1,6 +1,6 @@
 'use client';
 
-import { FiPlusCircle, FiTrash2, FiCopy, FiCheck } from 'react-icons/fi';
+import { FiPlusCircle, FiTrash2 } from 'react-icons/fi';
 import { useState, useEffect, useMemo } from 'react';
 
 interface Beneficiary {

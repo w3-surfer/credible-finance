@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCamera, FaCheckCircle, FaTimesCircle, FaClock } from 'react-icons/fa';
 import { Layout } from '@/components/Layout';
 import { AccountMenu } from '@/components/dashboard';
+import { FaUser, FaCheckCircle, FaTimesCircle, FaClock } from 'react-icons/fa';
+import { useState } from 'react';
 
 interface Profile {
   name: string;
@@ -35,11 +34,6 @@ export default function Profile() {
     }
   });
 
-  const handleImageUpload = (type: keyof Profile['kycDocuments']) => {
-    // Implementar lógica de upload
-    console.log('Uploading:', type);
-  };
-
   return (
     <Layout
       title="Profile"
@@ -55,9 +49,7 @@ export default function Profile() {
           <div className="md:col-span-3">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Informações Pessoais */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+              <div
                 className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
               >
                 <div className="flex items-center space-x-3 mb-6">
@@ -118,13 +110,10 @@ export default function Profile() {
                     Save Changes
                   </button>
                 </div>
-              </motion.div>
+              </div>
 
               {/* KYC Verification */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
+              <div
                 className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
               >
                 <div className="flex items-center space-x-3 mb-6">
@@ -220,7 +209,7 @@ export default function Profile() {
                     </button>
                   )}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>

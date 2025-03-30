@@ -16,7 +16,6 @@ import {
   Legend
 } from 'chart.js';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
 ChartJS.register(
   CategoryScale,

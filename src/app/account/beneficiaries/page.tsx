@@ -3,7 +3,7 @@
 import { Layout } from '@/components/Layout';
 import { AccountMenu } from '@/components/dashboard';
 import { Beneficiaries } from '@/components/dashboard/Beneficiaries';
-import { useState, useReducer, useCallback } from 'react';
+import { useReducer, useCallback } from 'react';
 
 interface Beneficiary {
   id: string;

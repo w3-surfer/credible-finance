@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FiUser, FiShield, FiUsers, FiCopy, FiCheck } from 'react-icons/fi';
+import { FiShield, FiUsers, FiCopy, FiCheck } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
