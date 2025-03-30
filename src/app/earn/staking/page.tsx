@@ -16,6 +16,8 @@ interface Staking {
   status: 'active' | 'completed' | 'pending';
 }
 
+type ActionType = 'supply' | 'withdraw';
+
 export default function Staking() {
   const [stakings, setStakings] = useState<Staking[]>([
     {
@@ -40,10 +42,11 @@ export default function Staking() {
 
   const [amount, setAmount] = useState('');
   const [lockPeriod, setLockPeriod] = useState('30');
+  const [action, setAction] = useState<ActionType>('supply');
 
   const handleStake = () => {
     // Implementar lógica de stake
-    console.log('Staking:', { amount, lockPeriod });
+    console.log('Action:', action, { amount, lockPeriod });
   };
 
   const handleUnstake = (id: string) => {
@@ -122,62 +125,94 @@ export default function Staking() {
                   <h2 className="text-xl font-bold text-white">Supply & Withdraw</h2>
                 </div>
 
+                {/* Menu de Seleção */}
+                <div className="flex space-x-2 mb-6">
+                  <button
+                    onClick={() => setAction('supply')}
+                    className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
+                      action === 'supply'
+                        ? 'bg-[#B9E605] text-black'
+                        : 'bg-cyber-gray-100 dark:bg-cyber-gray-200 text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    Supply
+                  </button>
+                  <button
+                    onClick={() => setAction('withdraw')}
+                    className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
+                      action === 'withdraw'
+                        ? 'bg-[#B9E605] text-black'
+                        : 'bg-cyber-gray-100 dark:bg-cyber-gray-200 text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    Withdraw
+                  </button>
+                </div>
+
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-400 mb-2">
-                      Amount to Stake
+                      {action === 'supply' ? 'Amount to Stake' : 'Amount to Withdraw'}
                     </label>
                     <div className="relative">
                       <input
                         type="number"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
-                        placeholder="Enter amount"
+                        placeholder={`Enter amount to ${action}`}
                         className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg focus:outline-none focus:border-cyber-green"
                       />
                       <div className="absolute right-3 top-2 text-gray-400">$CRED</div>
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-400 mb-2">
-                      Lock Period
-                    </label>
-                    <select
-                      value={lockPeriod}
-                      onChange={(e) => setLockPeriod(e.target.value)}
-                      className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg focus:outline-none focus:border-cyber-green"
-                    >
-                      <option value="30">30 days</option>
-                      <option value="60">60 days</option>
-                      <option value="90">90 days</option>
-                      <option value="180">180 days</option>
-                      <option value="365">365 days</option>
-                    </select>
-                  </div>
+                  {action === 'supply' && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-400 mb-2">
+                        Lock Period
+                      </label>
+                      <select
+                        value={lockPeriod}
+                        onChange={(e) => setLockPeriod(e.target.value)}
+                        className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg focus:outline-none focus:border-cyber-green"
+                      >
+                        <option value="30">30 days</option>
+                        <option value="60">60 days</option>
+                        <option value="90">90 days</option>
+                        <option value="180">180 days</option>
+                        <option value="365">365 days</option>
+                      </select>
+                    </div>
+                  )}
 
-                  <div className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-4 border border-cyber-green/10">
-                    <div className="flex justify-between items-center mb-2">
-                      <div className="text-gray-400">APY</div>
-                      <div className="text-[#B9E605] font-medium">12.5%</div>
-                    </div>
-                    <div className="flex justify-between items-center mb-2">
-                      <div className="text-gray-400">Lock Period</div>
-                      <div className="text-white">{lockPeriod} days</div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <div className="text-gray-400">Estimated Reward</div>
-                      <div className="text-white">
-                        {amount ? (parseFloat(amount) * 0.125 * (parseInt(lockPeriod) / 365)).toFixed(2) : '0'} $CRED
+                  {action === 'supply' && (
+                    <div className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-4 border border-cyber-green/10">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="text-gray-400">APY</div>
+                        <div className="text-[#B9E605] font-medium">12.5%</div>
+                      </div>
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="text-gray-400">Lock Period</div>
+                        <div className="text-white">{lockPeriod} days</div>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <div className="text-gray-400">Estimated Reward</div>
+                        <div className="text-white">
+                          {amount ? (parseFloat(amount) * 0.125 * (parseInt(lockPeriod) / 365)).toFixed(2) : '0'} $CRED
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
 
                   <button
                     onClick={handleStake}
-                    className="w-full px-6 py-3 bg-[#B9E605] text-black font-bold rounded-lg hover:bg-[#B9E605]/90 transition-colors"
+                    className={`w-full px-6 py-3 font-bold rounded-lg transition-colors ${
+                      action === 'supply'
+                        ? 'bg-[#B9E605] text-black hover:bg-[#B9E605]/90'
+                        : 'bg-red-500 text-white hover:bg-red-500/90'
+                    }`}
                   >
-                    Stake Now
+                    {action === 'supply' ? 'Supply Now' : 'Withdraw Now'}
                   </button>
                 </div>
               </motion.div>
