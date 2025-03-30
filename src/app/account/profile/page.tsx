@@ -1,116 +1,108 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiUser, FiLock, FiCreditCard, FiBell } from 'react-icons/fi';
+import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
-interface Field {
-  label: string;
-  value: string | boolean;
-  type: 'text' | 'email' | 'tel' | 'password' | 'checkbox';
+interface Profile {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
 }
-
-interface Section {
-  title: string;
-  icon: React.ElementType;
-  fields: Field[];
-}
-
-const profileSections: Section[] = [
-  {
-    title: 'Personal Information',
-    icon: FiUser,
-    fields: [
-      { label: 'Full Name', value: 'John Doe', type: 'text' },
-      { label: 'Email', value: 'john@example.com', type: 'email' },
-      { label: 'Phone', value: '+1 (555) 123-4567', type: 'tel' },
-    ],
-  },
-  {
-    title: 'Security',
-    icon: FiLock,
-    fields: [
-      { label: 'Current Password', value: '', type: 'password' },
-      { label: 'New Password', value: '', type: 'password' },
-      { label: 'Confirm New Password', value: '', type: 'password' },
-    ],
-  },
-  {
-    title: 'Payment Methods',
-    icon: FiCreditCard,
-    fields: [
-      { label: 'Card Number', value: '**** **** **** 1234', type: 'text' },
-      { label: 'Expiry Date', value: '12/25', type: 'text' },
-      { label: 'CVV', value: '***', type: 'password' },
-    ],
-  },
-  {
-    title: 'Notifications',
-    icon: FiBell,
-    fields: [
-      { label: 'Email Notifications', value: true, type: 'checkbox' },
-      { label: 'Push Notifications', value: true, type: 'checkbox' },
-      { label: 'SMS Notifications', value: false, type: 'checkbox' },
-    ],
-  },
-];
 
 export default function Profile() {
+  const [profile, setProfile] = useState<Profile>({
+    name: 'John Doe',
+    email: 'john@example.com',
+    phone: '+1 234 567 890',
+    address: '123 Cyber Street, Digital City',
+  });
+
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
-      {profileSections.map((section, sectionIndex) => (
-        <motion.div
-          key={section.title}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: sectionIndex * 0.1 }}
-          className="bg-gray-900/50 backdrop-blur-lg rounded-lg p-6 border border-gray-800"
-        >
-          <div className="flex items-center mb-6">
-            <section.icon className="w-6 h-6 text-[#B9E605] mr-2" />
-            <h2 className="text-xl font-bold">{section.title}</h2>
-          </div>
-          <div className="space-y-4">
-            {section.fields.map((field) => (
-              <div key={field.label}>
-                <label className="block text-sm font-medium mb-1">
-                  {field.label}
-                </label>
-                {field.type === 'checkbox' ? (
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      defaultChecked={field.value as boolean}
-                      className="h-4 w-4 text-[#B9E605] focus:ring-[#B9E605] border-gray-700 rounded bg-gray-800"
-                    />
-                    <span className="ml-2 text-sm text-gray-400">
-                      Enable {field.label}
-                    </span>
-                  </div>
-                ) : (
-                  <input
-                    type={field.type}
-                    defaultValue={field.value as string}
-                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#B9E605]"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      ))}
+    <div className="space-y-6">
+      <div className="pt-8">
+        <h1 className="text-2xl font-bold text-white mb-2">Profile</h1>
+        <p className="text-gray-400">Manage your profile information</p>
+      </div>
 
       <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="flex justify-end"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg p-6 border border-cyber-green/20 hover:border-cyber-green transition-all duration-300"
       >
-        <button
-          type="submit"
-          className="px-6 py-2 bg-[#B9E605] text-black font-bold rounded-lg hover:bg-opacity-90 transition-colors"
-        >
-          Save Changes
-        </button>
+        <div className="flex items-center justify-center space-x-3 mb-6">
+          <FaUser className="w-6 h-6 text-[#B9E605]" />
+          <h2 className="text-xl font-bold text-white">Profile Information</h2>
+        </div>
+
+        <div className="space-y-4">
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center">
+              <FaUser className="w-5 h-5 text-[#B9E605]" />
+            </div>
+            <div className="flex-grow">
+              <label className="block text-sm font-medium text-gray-400 mb-1">Name</label>
+              <input
+                type="text"
+                value={profile.name}
+                onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg focus:outline-none focus:border-cyber-green"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center">
+              <FaEnvelope className="w-5 h-5 text-[#B9E605]" />
+            </div>
+            <div className="flex-grow">
+              <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
+              <input
+                type="email"
+                value={profile.email}
+                onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg focus:outline-none focus:border-cyber-green"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center">
+              <FaPhone className="w-5 h-5 text-[#B9E605]" />
+            </div>
+            <div className="flex-grow">
+              <label className="block text-sm font-medium text-gray-400 mb-1">Phone</label>
+              <input
+                type="tel"
+                value={profile.phone}
+                onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg focus:outline-none focus:border-cyber-green"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 rounded-full bg-cyber-gray-100 dark:bg-cyber-gray-200 flex items-center justify-center">
+              <FaMapMarkerAlt className="w-5 h-5 text-[#B9E605]" />
+            </div>
+            <div className="flex-grow">
+              <label className="block text-sm font-medium text-gray-400 mb-1">Address</label>
+              <input
+                type="text"
+                value={profile.address}
+                onChange={(e) => setProfile({ ...profile, address: e.target.value })}
+                className="w-full px-4 py-2 bg-cyber-gray-100 dark:bg-cyber-gray-200 text-white border border-cyber-green/20 rounded-lg focus:outline-none focus:border-cyber-green"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <button className="px-6 py-2 bg-[#B9E605] text-black rounded-lg hover:bg-[#B9E605]/90 transition-colors">
+            Save Changes
+          </button>
+        </div>
       </motion.div>
     </div>
   );
