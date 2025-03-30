@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCamera, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCamera, FaCheckCircle, FaTimesCircle, FaClock } from 'react-icons/fa';
 import { Layout } from '@/components/Layout';
 import { AccountMenu } from '@/components/dashboard';
 
@@ -14,9 +14,9 @@ interface Profile {
   country: string;
   kycStatus: 'pending' | 'verified' | 'rejected';
   kycDocuments: {
-    idFront: string | null;
-    idBack: string | null;
-    selfie: string | null;
+    idFront: 'completed' | 'pending' | 'rejected';
+    idBack: 'completed' | 'pending' | 'rejected';
+    selfie: 'completed' | 'pending' | 'rejected';
   };
 }
 
@@ -29,9 +29,9 @@ export default function Profile() {
     country: 'United States',
     kycStatus: 'pending',
     kycDocuments: {
-      idFront: null,
-      idBack: null,
-      selfie: null
+      idFront: 'pending',
+      idBack: 'pending',
+      selfie: 'pending'
     }
   });
 
@@ -155,79 +155,64 @@ export default function Profile() {
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">
-                        ID Card Front
-                      </label>
-                      <div className="relative">
-                        <div className="w-full h-32 bg-cyber-gray-100 dark:bg-cyber-gray-200 border border-cyber-green/20 rounded-lg flex items-center justify-center">
-                          {profile.kycDocuments.idFront ? (
-                            <img
-                              src={profile.kycDocuments.idFront}
-                              alt="ID Front"
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          ) : (
-                            <FaCamera className="w-8 h-8 text-gray-400" />
-                          )}
-                        </div>
-                        <button
-                          onClick={() => handleImageUpload('idFront')}
-                          className="absolute bottom-2 right-2 bg-[#B9E605] text-black p-2 rounded-full hover:bg-[#B9E605]/90 transition-colors"
-                        >
-                          <FaCamera className="w-4 h-4" />
-                        </button>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg border border-cyber-green/10">
+                      <div className="flex items-center space-x-3">
+                        <div className="text-white font-medium">ID Card Front</div>
+                        {profile.kycDocuments.idFront === 'completed' && (
+                          <FaCheckCircle className="w-4 h-4 text-[#B9E605]" />
+                        )}
+                        {profile.kycDocuments.idFront === 'pending' && (
+                          <FaClock className="w-4 h-4 text-yellow-500" />
+                        )}
+                        {profile.kycDocuments.idFront === 'rejected' && (
+                          <FaTimesCircle className="w-4 h-4 text-red-500" />
+                        )}
+                      </div>
+                      <div className="text-sm text-gray-400">
+                        {profile.kycDocuments.idFront === 'completed' && 'Completed'}
+                        {profile.kycDocuments.idFront === 'pending' && 'Pending'}
+                        {profile.kycDocuments.idFront === 'rejected' && 'Rejected'}
                       </div>
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">
-                        ID Card Back
-                      </label>
-                      <div className="relative">
-                        <div className="w-full h-32 bg-cyber-gray-100 dark:bg-cyber-gray-200 border border-cyber-green/20 rounded-lg flex items-center justify-center">
-                          {profile.kycDocuments.idBack ? (
-                            <img
-                              src={profile.kycDocuments.idBack}
-                              alt="ID Back"
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          ) : (
-                            <FaCamera className="w-8 h-8 text-gray-400" />
-                          )}
-                        </div>
-                        <button
-                          onClick={() => handleImageUpload('idBack')}
-                          className="absolute bottom-2 right-2 bg-[#B9E605] text-black p-2 rounded-full hover:bg-[#B9E605]/90 transition-colors"
-                        >
-                          <FaCamera className="w-4 h-4" />
-                        </button>
+                    <div className="flex items-center justify-between p-3 bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg border border-cyber-green/10">
+                      <div className="flex items-center space-x-3">
+                        <div className="text-white font-medium">ID Card Back</div>
+                        {profile.kycDocuments.idBack === 'completed' && (
+                          <FaCheckCircle className="w-4 h-4 text-[#B9E605]" />
+                        )}
+                        {profile.kycDocuments.idBack === 'pending' && (
+                          <FaClock className="w-4 h-4 text-yellow-500" />
+                        )}
+                        {profile.kycDocuments.idBack === 'rejected' && (
+                          <FaTimesCircle className="w-4 h-4 text-red-500" />
+                        )}
+                      </div>
+                      <div className="text-sm text-gray-400">
+                        {profile.kycDocuments.idBack === 'completed' && 'Completed'}
+                        {profile.kycDocuments.idBack === 'pending' && 'Pending'}
+                        {profile.kycDocuments.idBack === 'rejected' && 'Rejected'}
                       </div>
                     </div>
 
-                    <div>
-                      <label className="block text-sm font-medium text-gray-400 mb-2">
-                        Selfie with ID
-                      </label>
-                      <div className="relative">
-                        <div className="w-full h-32 bg-cyber-gray-100 dark:bg-cyber-gray-200 border border-cyber-green/20 rounded-lg flex items-center justify-center">
-                          {profile.kycDocuments.selfie ? (
-                            <img
-                              src={profile.kycDocuments.selfie}
-                              alt="Selfie"
-                              className="w-full h-full object-cover rounded-lg"
-                            />
-                          ) : (
-                            <FaCamera className="w-8 h-8 text-gray-400" />
-                          )}
-                        </div>
-                        <button
-                          onClick={() => handleImageUpload('selfie')}
-                          className="absolute bottom-2 right-2 bg-[#B9E605] text-black p-2 rounded-full hover:bg-[#B9E605]/90 transition-colors"
-                        >
-                          <FaCamera className="w-4 h-4" />
-                        </button>
+                    <div className="flex items-center justify-between p-3 bg-cyber-gray-100 dark:bg-cyber-gray-200 rounded-lg border border-cyber-green/10">
+                      <div className="flex items-center space-x-3">
+                        <div className="text-white font-medium">Selfie with ID</div>
+                        {profile.kycDocuments.selfie === 'completed' && (
+                          <FaCheckCircle className="w-4 h-4 text-[#B9E605]" />
+                        )}
+                        {profile.kycDocuments.selfie === 'pending' && (
+                          <FaClock className="w-4 h-4 text-yellow-500" />
+                        )}
+                        {profile.kycDocuments.selfie === 'rejected' && (
+                          <FaTimesCircle className="w-4 h-4 text-red-500" />
+                        )}
+                      </div>
+                      <div className="text-sm text-gray-400">
+                        {profile.kycDocuments.selfie === 'completed' && 'Completed'}
+                        {profile.kycDocuments.selfie === 'pending' && 'Pending'}
+                        {profile.kycDocuments.selfie === 'rejected' && 'Rejected'}
                       </div>
                     </div>
                   </div>
