@@ -1,0 +1,17 @@
+{
+  "projectName": "credible-finance",
+  "channel": "wd78yue0",
+  "components": {
+    "sync": true,
+    "autoLayout": true,
+    "variants": true
+  },
+  "styles": {
+    "sync": true,
+    "tokens": true
+  },
+  "assets": {
+    "sync": true,
+    "optimize": true
+  }
+} 

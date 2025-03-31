@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "TalkToFigma": {
+      "command": "bunx",
+      "args": [
+        "cursor-talk-to-figma-mcp",
+        "--server=vps.sonnylab.com",
+        "--channel=wd78yue0",
+        "--sync=true",
+        "--project=credible-finance"
+      ]
+    }
+  }
+}
