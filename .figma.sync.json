@@ -1,0 +1,27 @@
+{
+  "projectName": "credible-finance",
+  "channel": "y9x3lmd0",
+  "port": 3055,
+  "server": "localhost",
+  "connection": {
+    "protocol": "ws",
+    "websocket": true,
+    "reconnect": true,
+    "timeout": 30000,
+    "host": "localhost"
+  },
+  "sync": {
+    "autoSync": true,
+    "interval": 1000,
+    "retryAttempts": 10,
+    "forceSync": true,
+    "components": true,
+    "styles": true,
+    "assets": true
+  },
+  "debug": {
+    "enabled": true,
+    "verbose": true,
+    "logLevel": "debug"
+  }
+} 

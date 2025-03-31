@@ -1,17 +1,15 @@
 {
   "projectName": "credible-finance",
-  "channel": "wd78yue0",
-  "components": {
-    "sync": true,
-    "autoLayout": true,
-    "variants": true
+  "channel": "eelqgpgt",
+  "port": 3055,
+  "server": "localhost",
+  "fileId": "credible-finance",
+  "sync": {
+    "autoSync": true,
+    "interval": 1000,
+    "retryAttempts": 10,
+    "forceSync": true,
+    "action": "update"
   },
-  "styles": {
-    "sync": true,
-    "tokens": true
-  },
-  "assets": {
-    "sync": true,
-    "optimize": true
-  }
+  "debug": true
 } 

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+      padding: 20px;
+      color: #333;
+      background: #ffffff;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .message-input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      background: #18A0FB;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      background: #0D8DE3;
+    }
+
+    button:disabled {
+      background: #CCCCCC;
+      cursor: not-allowed;
+    }
+
+    .status {
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .success {
+      background: #E6F4EA;
+      color: #137333;
+    }
+
+    .error {
+      background: #FCE8E6;
+      color: #C5221F;
+    }
+
+    .response {
+      margin-top: 16px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <textarea id="message" class="message-input" placeholder="Digite sua mensagem para o Figma..."></textarea>
+    <button id="send">
+      <span>💬</span>
+      Enviar Mensagem
+    </button>
+    <div id="status" class="status"></div>
+    <div id="response" class="response"></div>
+  </div>
+
+  <script>
+    // Inicializa a UI
+    document.addEventListener('DOMContentLoaded', () => {
+      parent.postMessage({ 
+        pluginMessage: { 
+          type: 'init-ui',
+          message: 'UI inicializada'
+        }
+      }, '*');
+    });
+
+    document.getElementById('send').onclick = () => {
+      const message = document.getElementById('message').value;
+      if (!message.trim()) {
+        parent.postMessage({ 
+          pluginMessage: { 
+            type: 'error',
+            message: 'Por favor, digite uma mensagem.'
+          }
+        }, '*');
+        return;
+      }
+      parent.postMessage({ 
+        pluginMessage: { 
+          type: 'talk-to-figma',
+          message
+        }
+      }, '*');
+    };
+
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+      const status = document.getElementById('status');
+      const response = document.getElementById('response');
+      
+      if (msg.type === 'success') {
+        status.textContent = msg.message;
+        status.className = 'status success';
+      } else if (msg.type === 'error') {
+        status.textContent = msg.message;
+        status.className = 'status error';
+      } else if (msg.type === 'response') {
+        response.textContent = msg.message;
+      }
+    };
+  </script>
+</body>
+</html> 

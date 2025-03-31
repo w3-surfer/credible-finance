@@ -4,10 +4,14 @@
       "command": "bunx",
       "args": [
         "cursor-talk-to-figma-mcp",
-        "--server=vps.sonnylab.com",
-        "--channel=wd78yue0",
-        "--sync=true",
-        "--project=credible-finance"
+        "--server=localhost",
+        "--port=3055",
+        "--channel=3f7plo3i",
+        "--project=credible-finance",
+        "--debug=true",
+        "--reconnect=true",
+        "--timeout=30000",
+        "--verbose=true"
       ]
     }
   }

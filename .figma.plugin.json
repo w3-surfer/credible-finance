@@ -1,0 +1,32 @@
+{
+  "name": "credible-finance-sync",
+  "id": "credible-finance-sync",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "capabilities": [
+    "textreview",
+    "inspect",
+    "codegen"
+  ],
+  "enableProposedApi": false,
+  "enablePrivatePluginApi": false,
+  "build": "npm run build",
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "localhost"
+    ]
+  },
+  "permissions": [
+    "currentuser"
+  ],
+  "menu": [
+    {
+      "name": "Sync Components",
+      "command": "sync-components"
+    }
+  ]
+} 
