@@ -58,7 +58,14 @@ export function Roadmap() {
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className="bg-black/50 backdrop-blur-sm border border-[#B9E605]/20 rounded-xl p-6 hover:border-[#B9E605]/40 transition-colors"
               >
-                <h3 className="text-[#B9E605] text-xl font-bold mb-4">{phase.title}</h3>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-[#B9E605] text-xl font-bold">{phase.title}</h3>
+                  {phase.status === "completed" ? (
+                    <FiCheck className="text-green-500 text-xl" />
+                  ) : phase.status === "current" ? (
+                    <FiClock className="text-yellow-500 text-xl" />
+                  ) : null}
+                </div>
                 <ul className="space-y-3">
                   {phase.items.map((item, itemIndex) => (
                     <li key={itemIndex} className="flex items-start gap-2 text-gray-300">
