@@ -1,6 +1,6 @@
 'use client';
 
-import { FiLock, FiArrowDownCircle, FiArrowUpCircle, FiTrendingUp, FiGift } from 'react-icons/fi';
+import { FiLock } from 'react-icons/fi';
 
 interface StakingPool {
   token: string;
