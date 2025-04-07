@@ -21,7 +21,7 @@ const navItems = [
 ];
 
 export function FooterMobile({ className = '' }: FooterMobileProps) {
-  const pathname = usePathname();
+  const pathname = usePathname() || '';
 
   return (
     <footer className={`fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#B9E605]/30 via-[#B9E605]/10 to-transparent md:hidden ${className}`}>
