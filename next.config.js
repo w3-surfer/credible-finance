@@ -54,9 +54,20 @@ const nextConfig = {
           },
         },
       },
-      runtimeChunk: 'single',
-      moduleIds: 'deterministic',
     };
+
+    // Configuração do Critters
+    if (!dev && !isServer) {
+      config.plugins.push(
+        new (require('critters').default)({
+          preload: 'swap',
+          preloadFonts: true,
+          fonts: true,
+          noscriptFallback: true,
+        })
+      );
+    }
+
     return config;
   },
 }

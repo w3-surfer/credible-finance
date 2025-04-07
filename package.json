@@ -6,9 +6,9 @@
     "node": "20.x"
   },
   "scripts": {
-    "dev": "PORT=3009 next dev",
+    "dev": "PORT=3002 next dev",
     "build": "ANALYZE=true next build",
-    "start": "PORT=3009 next start",
+    "start": "PORT=3002 next start",
     "lint": "next lint",
     "clean": "rm -rf .next",
     "build:analyze": "ANALYZE=true next build",
@@ -42,6 +42,7 @@
     "@types/react-dom": "^18.2.19",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.17",
+    "critters": "0.0.23",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.1.0",
     "postcss": "^8.4.35",
