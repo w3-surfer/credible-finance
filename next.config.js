@@ -7,16 +7,27 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'images.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: '*.solana.com',
+      }
     ],
+    formats: ['image/avif', 'image/webp'],
   },
   experimental: {
     serverActions: {
       bodySizeLimit: '2mb',
     },
     optimizeCss: true,
-    optimizePackageImports: ['framer-motion', 'react-icons'],
+    optimizePackageImports: [
+      'framer-motion',
+      'react-icons',
+      '@solana/wallet-adapter-react-ui',
+      'chart.js',
+      'recharts'
+    ],
     serverComponentsExternalPackages: ['sharp'],
   },
   swcMinify: true,
@@ -32,34 +43,6 @@ const nextConfig = {
   poweredByHeader: false,
   webpack: (config, { dev, isServer }) => {
     if (!dev && !isServer) {
-      const Critters = require('critters');
-      const critters = new Critters({
-        preload: 'swap',
-        preloadFonts: true,
-        fonts: true,
-        noscriptFallback: true,
-      });
-
-      config.plugins.push({
-        apply: (compiler) => {
-          compiler.hooks.compilation.tap('Critters', (compilation) => {
-            if (compilation.hooks.htmlWebpackPluginAfterHtmlProcessing) {
-              compilation.hooks.htmlWebpackPluginAfterHtmlProcessing.tapAsync(
-                'Critters',
-                async (data, cb) => {
-                  try {
-                    data.html = await critters.process(data.html);
-                    cb(null, data);
-                  } catch (err) {
-                    cb(err);
-                  }
-                }
-              );
-            }
-          });
-        },
-      });
-
       config.optimization = {
         ...config.optimization,
         splitChunks: {
