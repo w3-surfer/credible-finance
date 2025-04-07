@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const Critters = require('critters');
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -59,7 +61,7 @@ const nextConfig = {
     // Configuração do Critters
     if (!dev && !isServer) {
       config.plugins.push(
-        new (require('critters').default)({
+        new Critters({
           preload: 'swap',
           preloadFonts: true,
           fonts: true,
@@ -70,6 +72,6 @@ const nextConfig = {
 
     return config;
   },
-}
+};
 
-module.exports = nextConfig 
+module.exports = nextConfig; 
