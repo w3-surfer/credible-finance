@@ -14,7 +14,13 @@ interface PageTitleProps {
   icon?: IconType;
 }
 
-const titles = {
+interface PageTitleData {
+  title: string;
+  subtitle: string;
+  icon?: IconType;
+}
+
+const titles: Record<string, PageTitleData> = {
   '/account': {
     title: 'Account',
     subtitle: 'Manage your account settings and preferences',
@@ -114,7 +120,7 @@ export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProp
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const PageIcon = pageTitle.icon || Icon;
+  const PageIcon = 'icon' in pageTitle ? pageTitle.icon : Icon;
 
   if (!mounted) {
     return null;
@@ -149,7 +155,7 @@ export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProp
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <FiUser className="w-5 h-5" />
-                      Account
+                      <span>Account</span>
                     </Link>
                     <Link
                       href="/dashboard"
@@ -157,7 +163,7 @@ export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProp
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <FiLayout className="w-5 h-5" />
-                      Dashboard
+                      <span>Dashboard</span>
                     </Link>
                     <Link
                       href="/earn"
@@ -165,14 +171,14 @@ export default function PageTitle({ title, subtitle, icon: Icon }: PageTitleProp
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <FiTrendingUp className="w-5 h-5" />
-                      Earn
+                      <span>Earn</span>
                     </Link>
                   </div>
                 )}
               </div>
             )}
           </div>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
             {pageTitle.subtitle}
           </p>
         </div>
